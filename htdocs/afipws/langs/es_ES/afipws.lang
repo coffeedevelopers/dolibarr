@@ -1,0 +1,27 @@
+# Dolibarr language file - es_ES - afipws
+CHARSET=UTF-8
+# Module
+Module1050003Name=AFIPWS
+Module1050003Desc=Modulo conector con servicios de AFIP Argentina
+# Admin
+Config=Configuracion
+Support=Soporte
+About=Acerca de
+# Config
+wsfePHPConfig=Configuracion Factura Electronica
+msgSaveDataOK=Modificacion Exitosa
+msgSaveDataNOK=Error en los datos ingresados
+# Status
+ServerStatus=Estado Servidores
+Renewta=Renovar TA
+InvoiceInfo=Informacion de Comprobantes
+TypeInvoice=Tipo de Comprobante
+POS=Punto de Venta
+InvoiceNumber=Comprobante Número
+Request=Solicitar
+DebugConsole=Consola de Depuración
+AFIPServerStatus=Estado Servidores AFIP
+WSAAConfig=Configuracion WSAA
+wsfev1Config=Configuracion WSFEV1
+# Substitutions
+AFIPWS_OFFERED_QTY_TOTAL_TEXT=producto/s de regalo con un monto de

@@ -1,0 +1,24 @@
+# Dolibarr language file - en_US - wsfephp
+CHARSET=UTF-8
+# Module
+Module50002Name=wsfePHP
+Module50002Desc=Argentina Electronic Invoice
+# Admin
+Config=Setup
+Support=Support
+About=About
+# Config
+wsfePHPConfig=Electronic Invoice Setup
+msgSaveDataOK=Successful modification
+msgSaveDataNOK=Error in entered data
+# Status
+ServerStatus=Server Status
+Renewta=Renew TA
+InvoiceInfo=Invoice Information
+TypeInvoice=Invoice Type
+POS=Point of Sale
+InvoiceNumber=Invoice Number
+Request=Request
+DebugConsole=Console Debug
+AFIPServerStatus=AFIP Server Status
+

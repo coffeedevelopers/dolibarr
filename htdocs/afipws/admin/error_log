@@ -1,0 +1,76 @@
+[22-Sep-2018 02:51:22 UTC] PHP Warning:  file_get_contents(): Filename cannot be empty in /home/katalcom/bg.katal.com.ar/htdocs/afipws/class/wsfev1.class.php on line 77
+[22-Sep-2018 02:51:22 UTC] PHP Warning:  file_get_contents(): Filename cannot be empty in /home/katalcom/bg.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 82
+[26-Sep-2018 17:50:05 UTC] PHP Warning:  unlink(/home/katalcom/demo.katal.com.ar/documents/afipws/1/xml/TA-wsfe.xml): No such file or directory in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 185
+[26-Sep-2018 17:50:05 UTC] PHP Warning:  openssl_pkcs7_sign(): error creating PKCS7 structure! in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 132
+[26-Sep-2018 17:54:09 UTC] PHP Warning:  unlink(/home/katalcom/demo.katal.com.ar/documents/afipws/1/xml/TA-wsfe.xml): No such file or directory in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 185
+[26-Sep-2018 17:54:33 UTC] PHP Warning:  unlink(/home/katalcom/demo.katal.com.ar/documents/afipws/1/xml/TA-wsfe.xml): No such file or directory in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 185
+[09-Mar-2019 13:22:15 UTC] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsfev1.class.php on line 138
+[26-Apr-2019 01:49:01 UTC] PHP Warning:  file_get_contents(): https:// wrapper is disabled in the server configuration by allow_url_fopen=0 in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsfev1.class.php on line 78
+[26-Apr-2019 01:49:01 UTC] PHP Warning:  file_get_contents(https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL): failed to open stream: no suitable wrapper could be found in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsfev1.class.php on line 78
+[26-Apr-2019 01:49:01 UTC] PHP Warning:  file_get_contents(): https:// wrapper is disabled in the server configuration by allow_url_fopen=0 in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 87
+[26-Apr-2019 01:49:01 UTC] PHP Warning:  file_get_contents(https://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL): failed to open stream: no suitable wrapper could be found in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 87
+[26-Apr-2019 02:20:43 UTC] PHP Warning:  file_get_contents(): https:// wrapper is disabled in the server configuration by allow_url_fopen=0 in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsfev1.class.php on line 78
+[26-Apr-2019 02:20:43 UTC] PHP Warning:  file_get_contents(https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL): failed to open stream: no suitable wrapper could be found in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsfev1.class.php on line 78
+[26-Apr-2019 02:20:43 UTC] PHP Warning:  file_get_contents(): https:// wrapper is disabled in the server configuration by allow_url_fopen=0 in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 87
+[26-Apr-2019 02:20:43 UTC] PHP Warning:  file_get_contents(https://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL): failed to open stream: no suitable wrapper could be found in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 87
+[26-Apr-2019 02:20:47 UTC] PHP Warning:  file_get_contents(): https:// wrapper is disabled in the server configuration by allow_url_fopen=0 in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsfev1.class.php on line 78
+[26-Apr-2019 02:20:47 UTC] PHP Warning:  file_get_contents(https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL): failed to open stream: no suitable wrapper could be found in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsfev1.class.php on line 78
+[26-Apr-2019 02:20:47 UTC] PHP Warning:  file_get_contents(): https:// wrapper is disabled in the server configuration by allow_url_fopen=0 in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 87
+[26-Apr-2019 02:20:47 UTC] PHP Warning:  file_get_contents(https://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL): failed to open stream: no suitable wrapper could be found in /home/katalcom/demo.katal.com.ar/htdocs/afipws/class/wsaa.class.php on line 87
+[02-Oct-2019 18:22:24 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to exception_handler() must be an instance of Exception, instance of Error given in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php:4
+Stack trace:
+#0 [internal function]: exception_handler(Object(Error))
+#1 {main}
+  thrown in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 4
+[02-Oct-2019 18:25:46 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to exception_handler() must be an instance of Exception, instance of Error given in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php:4
+Stack trace:
+#0 [internal function]: exception_handler(Object(Error))
+#1 {main}
+  thrown in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 4
+[02-Oct-2019 18:27:21 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to exception_handler() must be an instance of Exception, instance of Error given in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php:4
+Stack trace:
+#0 [internal function]: exception_handler(Object(Error))
+#1 {main}
+  thrown in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 4
+[02-Oct-2019 18:31:57 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to exception_handler() must be an instance of Exception, instance of Error given in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php:4
+Stack trace:
+#0 [internal function]: exception_handler(Object(Error))
+#1 {main}
+  thrown in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 4
+[02-Oct-2019 18:36:35 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to exception_handler() must be an instance of Exception, instance of Error given in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php:4
+Stack trace:
+#0 [internal function]: exception_handler(Object(Error))
+#1 {main}
+  thrown in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 4
+[02-Oct-2019 18:39:03 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/ea-php72/sess_rvqbirki8g9tgdsa8rifajv2t0, O_RDWR) failed: No such file or directory (2) in /home/katalcom/demo.katal.tk/htdocs/main.inc.php on line 237
+[02-Oct-2019 18:39:03 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/ea-php72) in /home/katalcom/demo.katal.tk/htdocs/main.inc.php on line 237
+[02-Oct-2019 18:39:09 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/ea-php72/sess_rvqbirki8g9tgdsa8rifajv2t0, O_RDWR) failed: No such file or directory (2) in /home/katalcom/demo.katal.tk/htdocs/main.inc.php on line 237
+[02-Oct-2019 18:39:09 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/ea-php72) in /home/katalcom/demo.katal.tk/htdocs/main.inc.php on line 237
+[02-Oct-2019 18:39:10 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to exception_handler() must be an instance of Exception, instance of Error given in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php:4
+Stack trace:
+#0 [internal function]: exception_handler(Object(Error))
+#1 {main}
+  thrown in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 4
+[02-Oct-2019 18:39:44 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/ea-php72/sess_rvqbirki8g9tgdsa8rifajv2t0, O_RDWR) failed: No such file or directory (2) in /home/katalcom/demo.katal.tk/htdocs/main.inc.php on line 237
+[02-Oct-2019 18:39:44 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/ea-php72) in /home/katalcom/demo.katal.tk/htdocs/main.inc.php on line 237
+[02-Oct-2019 18:39:51 UTC] PHP Warning:  session_start(): open(/var/cpanel/php/sessions/ea-php72/sess_rvqbirki8g9tgdsa8rifajv2t0, O_RDWR) failed: No such file or directory (2) in /home/katalcom/demo.katal.tk/htdocs/main.inc.php on line 237
+[02-Oct-2019 18:39:51 UTC] PHP Warning:  session_start(): Failed to read session data: files (path: /var/cpanel/php/sessions/ea-php72) in /home/katalcom/demo.katal.tk/htdocs/main.inc.php on line 237
+[02-Oct-2019 18:39:51 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to exception_handler() must be an instance of Exception, instance of Error given in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php:4
+Stack trace:
+#0 [internal function]: exception_handler(Object(Error))
+#1 {main}
+  thrown in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 4
+[02-Oct-2019 18:40:37 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to exception_handler() must be an instance of Exception, instance of Error given in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php:4
+Stack trace:
+#0 [internal function]: exception_handler(Object(Error))
+#1 {main}
+  thrown in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 4
+[02-Oct-2019 18:44:31 UTC] PHP Fatal error:  Uncaught TypeError: Argument 1 passed to exception_handler() must be an instance of Exception, instance of Error given in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php:4
+Stack trace:
+#0 [internal function]: exception_handler(Object(Error))
+#1 {main}
+  thrown in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 4
+[02-Oct-2019 19:11:39 UTC] PHP Warning:  Use of undefined constant ‘HTTP_X_REQUESTED_WITH’ - assumed '‘HTTP_X_REQUESTED_WITH’' (this will throw an Error in a future version of PHP) in /home/katalcom/demo.katal.tk/htdocs/afipws/exceptionhandler.php on line 17
+[02-Oct-2019 19:12:49 UTC] PHP Warning:  unlink(/home/katalcom/demo.katal.tk/documents/afipws/1/xml/TRA-wsfe.xml): No such file or directory in /home/katalcom/demo.katal.tk/htdocs/afipws/class/wsaa.class.php on line 107
+[02-Oct-2019 19:12:49 UTC] PHP Warning:  unlink(/home/katalcom/demo.katal.tk/documents/afipws/1/xml/TA-wsfe.xml): No such file or directory in /home/katalcom/demo.katal.tk/htdocs/afipws/class/wsaa.class.php on line 185
+[02-Oct-2019 19:13:12 UTC] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/katalcom/demo.katal.tk/htdocs/afipws/class/wsfev1.class.php on line 138
