@@ -1,0 +1,51 @@
+#
+# Générique
+#
+Module940326081Name=<a class='ds_url_module_name' target='_blank' href='https://www.dolibarrstore.com'>Revolution Pro Dolibarr-Design</a>
+Module940326081Desc=<a class='ds_url_module_desc' target='_blank' href='https://www.dolibarrstore.com'>Revolution Pro Dolibarr-Design - Dolibarr-Design - https://www.dolibarrstore.com <i style='font - Größe: 12px;' class='fa fa-external-link'></i></a>
+SetupSaved=Gespeicherte Konfiguration
+RevolutionproSetup=Revolution Pro Dolibarr-Design-Setup
+RevolutionproSettings=Einstellungen
+Colors=Farben
+PrimaryColor=Primärfarbe
+SecondaryColor=Sekundäre Farbe
+HeaderBckgrdColor=Hintergrundfarbe des Menüs
+BodyBckgrdColor=Hintergrundfarbe der Seite
+LogoBckgrdColor=LOGO-Hintergrundfarbe
+TxtMenuColor=Farbe der vertikalen Menütitel
+DefaultsColors=Zurück zu den Originalfarben
+DefaultsColorsMsg=Originalfarben aktiviert
+AS_SettingsColors=Farben
+AS_SettingsOptions=Optionen
+FixedMenu=Vertikales Menü korrigiert
+FixedMenuDescr=Das Schiebemenü bleibt nur im PC-Modus sichtbar
+AS_AdvSettingsOptions=Erweiterte Optionen
+CustomCSS=Benutzerdefinierte CSS
+CustomCSSDescr=Laden Sie die Datei /revolutionpro/css/as_style_custom.css
+CustomJS=Benutzerdefiniertes JS
+CustomJSDescr=Laden Sie die Datei /revolutionpro/js/as_code_custom.js
+AS_SettingsFontSizes=Schriftgrößen
+HeaderFontSize=Horizontales Menü (Symbole)
+VmenuFontSize=Vertikales Menü (Text)
+Element=Element
+Validation=Validierung
+Smartphone=Tablets / Smartphones
+Desktop=Desktop-PC
+RevolutionproAbout=Über
+RevolutionproAboutPage=Über das Dolibarr-Design des Revolution Pro-Moduls
+revolutionprochangelanguage=Ändern Sie Ihre eigene Sprache im Menü
+ContactAdministratorToGiveVersionCompatible=Kontaktieren Sie uns unter "contact@dolibarrstore.com", um Ihnen eine mit Ihrer Dolibarr-Version kompatible Designversion bereitzustellen
+#RevolutionProFourBoxes=4 Kisten
+RevolutionProFourBoxes=Verstecken anzeigen
+RevolutionProFourBoxesShow=Kisten zeigen
+RevolutionProFourBoxesHide=Kisten verstecken
+RevoProDefaultsParamets=Zurück zu den ursprünglichen Einstellungen
+OrderNow=Jetzt bestellen!
+RevolutionProFourCompanynameShow=Firmennamen anzeigen
+RevolutionProFourCompanynameHide=Firmennamen ausblenden
+RevolutionProFourBoxesContent=Lieferumfang
+RevolutionProCatalogue=Katalog
+RevolutionProfirstbox=Zuerst
+RevolutionProsecondtbox=Sekunde
+RevolutionProthirdbox=Dritter
+RevolutionProfourthbox=Vierte

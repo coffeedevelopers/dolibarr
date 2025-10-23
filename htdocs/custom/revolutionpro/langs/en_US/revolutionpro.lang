@@ -1,0 +1,65 @@
+#
+# Generic
+#
+
+Module940326081Name=<a class='ds_url_module_name' target='_blank' href='https://www.dolibarrstore.com'>Revolution Pro Theme Dolibarr</a>
+Module940326081Desc=<a class='ds_url_module_desc' target='_blank' href='https://www.dolibarrstore.com'>Revolution Pro Theme Dolibarr - Dolibarr Theme - https://www.dolibarrstore.com <i style='font-size: 12px;' class='fa fa-external-link'></i></a> 
+
+#
+# Admin page
+#
+SetupSaved=Setup saved
+RevolutionproSetup=Revolution Pro Theme Dolibarr Module setup
+RevolutionproSettings=Settings
+Colors=Colors
+PrimaryColor=Primary Color
+SecondaryColor=Secondary color
+HeaderBckgrdColor=Menu background color 
+BodyBckgrdColor=Background color
+LogoBckgrdColor=LOGO Background color
+TxtMenuColor=Vertical Menu titles color
+DefaultsColors=Back to default colors
+DefaultsColorsMsg=Default colors activated
+AS_SettingsColors=Colors
+AS_SettingsOptions=Options
+FixedMenu=Fixed vertical menu
+FixedMenuDescr=Sliding menu stay visible only in Desktop mode
+AS_AdvSettingsOptions=Advanced options
+CustomCSS=Custom CSS
+CustomCSSDescr=Load /revolutionpro/css/as_style_custom.css file
+CustomJS=Custom JS
+CustomJSDescr=Load /revolutionpro/js/as_code_custom.js file
+AS_SettingsFontSizes=Font sizes
+HeaderFontSize=Horizontal Menu (icons)
+revolutionpromodeditor=dolibarrstore.com
+VmenuFontSize=Vertical menu (text)
+Element=Elément
+Validation=Validation
+Smartphone=Tablets / Smartphones
+Desktop=Desktops
+
+#
+# About page
+#
+RevolutionproAbout=About
+RevolutionproAboutPage=Revolution Pro Theme Dolibarr about page
+
+revolutionprochangelanguage=Change own language from the menu
+ContactAdministratorToGiveVersionCompatible=Contact us "contact@dolibarrstore.com" to provide you a version of theme compatible with your Dolibarr version
+
+#RevolutionProFourBoxes=4 Boxes
+RevolutionProFourBoxes=Hide / Show
+RevolutionProFourBoxesShow=Show boxes
+RevolutionProFourBoxesHide=Hide boxes
+RevoProDefaultsParamets=Return to original settings
+OrderNow=Order Now!
+RevolutionProFourCompanynameShow=Show the company name
+RevolutionProFourCompanynameHide=Hide the company name
+
+
+RevolutionProFourBoxesContent=Box contents
+RevolutionProCatalogue=Catalog
+RevolutionProfirstbox=First
+RevolutionProsecondtbox=Second
+RevolutionProthirdbox=Third
+RevolutionProfourthbox=Fourth

@@ -1,0 +1,52 @@
+#
+# Générique
+#
+
+Module940326081Name=<a class='ds_url_module_name' target='_blank' href='https://www.dolibarrstore.com'>Tema Revolution Pro Dolibarr</a>
+Module940326081Desc=<a class='ds_url_module_desc' target='_blank' href='https://www.dolibarrstore.com'>Tema Revolution Pro Dolibarr - Tema Dolibarr - https://www.dolibarrstore.com <i style='font - dimensione: 12px;' class='fa fa-link-esterno'></i></a>
+SetupSaved=Configurazione salvata
+RevolutionproSetup=Configurazione del tema Revolution Pro Dolibarr
+RevolutionproSettings=Impostazioni
+Colors=Colori
+PrimaryColor=Colore primario
+SecondaryColor=Colore secondario
+HeaderBckgrdColor=Colore di sfondo del menu
+BodyBckgrdColor=Colore di sfondo della pagina
+LogoBckgrdColor=Colore di sfondo del LOGO
+TxtMenuColor=Colore dei titoli dei menu verticali
+DefaultsColors=Torna ai colori originali
+DefaultsColorsMsg=Colori originali abilitati
+AS_SettingsColors=Colori
+AS_SettingsOptions=Opzioni
+FixedMenu=Menu verticale fisso
+FixedMenuDescr=Il menu scorrevole rimane visibile solo in modalità PC
+AS_AdvSettingsOptions=Opzioni avanzate
+CustomCSS=CSS personalizzato
+CustomCSSDescr=Carica il file /revolutionpro/css/as_style_custom.css
+CustomJS=JS personalizzato
+CustomJSDescr=Carica il file /revolutionpro/js/as_code_custom.js
+AS_SettingsFontSizes=Dimensioni dei caratteri
+HeaderFontSize=Menu orizzontale (icone)
+VmenuFontSize=Menu verticale (testo)
+Element=Elemento
+Validation=Convalida
+Smartphone=Tablet / Smartphone
+Desktop=computer fisso
+RevolutionproAbout=Di
+RevolutionproAboutPage=Informazioni sul tema Dolibarr del modulo Revolution Pro
+revolutionprochangelanguage=Cambia la tua lingua nel menu
+ContactAdministratorToGiveVersionCompatible=Contattaci "contact@dolibarrstore.com" per fornirti una versione del tema compatibile con la tua versione di Dolibarr
+#RevolutionProFourBoxes=4 scatole
+RevolutionProFourBoxes=Nascondi/Mostra
+RevolutionProFourBoxesShow=Mostra scatole
+RevolutionProFourBoxesHide=Nascondi scatole
+RevoProDefaultsParamets=Torna alle impostazioni originali
+OrderNow=Ordina adesso!
+RevolutionProFourCompanynameShow=Mostra il nome dell'azienda
+RevolutionProFourCompanynameHide=Nascondi il nome dell'azienda
+RevolutionProFourBoxesContent=Contenuto della confezione
+RevolutionProCatalogue=Catalogare
+RevolutionProfirstbox=Primo
+RevolutionProsecondtbox=Secondo
+RevolutionProthirdbox=Terzo
+RevolutionProfourthbox=Il quarto

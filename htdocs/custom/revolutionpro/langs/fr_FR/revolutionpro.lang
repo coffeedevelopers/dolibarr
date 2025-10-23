@@ -1,0 +1,63 @@
+#
+# Générique
+#
+Module940326081Name=<a class='ds_url_module_name' target='_blank' href='https://www.dolibarrstore.com'>Révolution Pro Thème Dolibarr</a>
+Module940326081Desc=<a class='ds_url_module_desc' target='_blank' href='https://www.dolibarrstore.com'>Révolution Pro Thème Dolibarr - Thème de Dolibarr - https://www.dolibarrstore.com <i style='font-size: 12px;' class='fa fa-external-link'></i></a> 
+
+#
+# Page d'administration
+#
+SetupSaved=Configuration enregistrée
+RevolutionproSetup=Configuration du Révolution Pro Thème Dolibarr
+RevolutionproSettings=Paramètres
+Colors=Couleurs
+PrimaryColor=Couleur primaire
+SecondaryColor=Couleur secondaire
+HeaderBckgrdColor=Couleur de fond du Menu
+BodyBckgrdColor=Couleur de fond des pages
+LogoBckgrdColor=Couleur de fond du LOGO
+TxtMenuColor=Couleur des titres du menu vertical
+DefaultsColors=Retour aux couleurs d'origine
+DefaultsColorsMsg=Couleurs d'origine activées
+AS_SettingsColors=Couleurs
+AS_SettingsOptions=Options
+FixedMenu=Menu vertical fixe
+FixedMenuDescr=Le menu glissant reste apparent uniquement en mode PC
+AS_AdvSettingsOptions=Options avancées
+CustomCSS=CSS personnalisé
+CustomCSSDescr=Charge le fichier /revolutionpro/css/as_style_custom.css
+CustomJS=JS personnalisé
+CustomJSDescr=Charge le fichier /revolutionpro/js/as_code_custom.js
+AS_SettingsFontSizes=Tailles de police
+HeaderFontSize=Menu horizontal (icones)
+VmenuFontSize=Menu vertical (texte)
+Element=Elément
+Validation=Validation
+Smartphone=Tablettes / Smartphones
+Desktop=PC de bureau
+
+#
+# Page À propos
+#
+RevolutionproAbout=À propos
+RevolutionproAboutPage=À propos du module Révolution Pro Thème Dolibarr
+
+revolutionprochangelanguage=Changer sa propre langue dans le menu
+ContactAdministratorToGiveVersionCompatible=Contactez-nous "contact@dolibarrstore.com" pour vous fournir une version de theme compatible avec votre version Dolibarr
+
+#RevolutionProFourBoxes=4 Boxes
+RevolutionProFourBoxes=Cacher / Afficher
+RevolutionProFourBoxesShow=Afficher les boxes
+RevolutionProFourBoxesHide=Cacher les boxes
+RevoProDefaultsParamets=Retour aux paramètres d'origine
+OrderNow=Commander Maintenant!
+RevolutionProFourCompanynameShow=Afficher le nom de la société 
+RevolutionProFourCompanynameHide=Cacher le nom de la société 
+
+
+RevolutionProFourBoxesContent=Contenu des Boxes
+RevolutionProCatalogue=Catalogue
+RevolutionProfirstbox=Première
+RevolutionProsecondtbox=Deuxième
+RevolutionProthirdbox=Troisième
+RevolutionProfourthbox=Quatrième
