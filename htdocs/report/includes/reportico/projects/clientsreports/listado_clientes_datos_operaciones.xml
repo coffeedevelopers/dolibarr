@@ -1,0 +1,108 @@
+<?xml version="1.0"?><Report><ReportQuery><Format><ReportTitle>Listado Clientes: Datos Operaciones / AP</ReportTitle><ReportDescription></ReportDescription><PageSize>.DEFAULT</PageSize><PageOrientation>.DEFAULT</PageOrientation><TopMargin></TopMargin><BottomMargin></BottomMargin><RightMargin></RightMargin><LeftMargin></LeftMargin><pdfFont></pdfFont><pdfFontSize></pdfFontSize><PreExecuteCode>NONE</PreExecuteCode><formBetweenRows>solidline</formBetweenRows><gridDisplay>.DEFAULT</gridDisplay><gridSortable>.DEFAULT</gridSortable><gridSearchable>.DEFAULT</gridSearchable><gridPageable>.DEFAULT</gridPageable><gridPageSize>.DEFAULT</gridPageSize></Format><Datasource><SourceType>database</SourceType><SourceConnection><DatabaseType>mysql</DatabaseType><DatabaseName></DatabaseName><HostName></HostName><ServiceName></ServiceName><UserName></UserName><Password></Password></SourceConnection></Datasource><EntryForm><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection>all</RowSelection><SQL><QuerySql></QuerySql><SQLRaw>select  soc.nom,
+		CASE soce.altaempleado
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS alta_empleado, 
+        CASE soce.art
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS art, 
+        CASE soce.seguro
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS seguro, 
+        CASE soce.f931
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS f931, 
+        CASE soce.nominaafip
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS nomina_afip, 
+        CASE soce.recibosueldo
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS recibo_sueldo, 
+        CASE soce.fisicodigital
+         when 1 then 'Físico'
+         when 2 then 'Digital'
+         when 3 then 'No Aplica'
+         else 'S/D'
+		END AS fisicodigital, 
+        CASE soce.svo
+         when 0 then 'No'
+         when 1 then 'Si'
+         when 2 then 'Si'
+         else 'S/D'
+		END AS svo, 
+        CASE soce.librosueldo
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS libro_sueldo, 
+        CASE soce.anexo
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS anexo, 
+        CASE soce.capacitacion
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS capacitacion
+from llx_societe_extrafields soce
+inner join llx_societe soc on soc.rowid = soce.fk_object
+where soc.client = 1
+order by 1 asc</SQLRaw></SQL><QueryColumns><QueryColumn><Name>nom</Name><TableName>soc</TableName><ColumnName>nom</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>alta_empleado</Name><TableName></TableName><ColumnName>CASE soce.altaempleado
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>art</Name><TableName></TableName><ColumnName>CASE soce.art
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>seguro</Name><TableName></TableName><ColumnName>CASE soce.seguro
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>f931</Name><TableName></TableName><ColumnName>CASE soce.f931
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>nomina_afip</Name><TableName></TableName><ColumnName>CASE soce.nominaafip
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>recibo_sueldo</Name><TableName></TableName><ColumnName>CASE soce.recibosueldo
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>fisicodigital</Name><TableName></TableName><ColumnName>CASE soce.fisicodigital
+         when 1 then 'Físico'
+         when 2 then 'Digital'
+         when 3 then 'No Aplica'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>svo</Name><TableName></TableName><ColumnName>CASE soce.svo
+         when 0 then 'No'
+         when 1 then 'Si'
+         when 2 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>libro_sueldo</Name><TableName></TableName><ColumnName>CASE soce.librosueldo
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>anexo</Name><TableName></TableName><ColumnName>CASE soce.anexo
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>capacitacion</Name><TableName></TableName><ColumnName>CASE soce.capacitacion
+         when 0 then 'No'
+         when 1 then 'Si'
+         else 'S/D'
+		END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn></QueryColumns><OrderColumns></OrderColumns><PreSQLS></PreSQLS></Query><Assignments></Assignments><Criteria></Criteria><Output><PageHeaders></PageHeaders><PageFooters></PageFooters><DisplayOrders><DisplayOrder><ColumnName>nom</ColumnName><OrderNumber>1</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>alta_empleado</ColumnName><OrderNumber>2</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>art</ColumnName><OrderNumber>3</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>seguro</ColumnName><OrderNumber>4</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>f931</ColumnName><OrderNumber>5</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>nomina_afip</ColumnName><OrderNumber>6</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>recibo_sueldo</ColumnName><OrderNumber>7</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>fisicodigital</ColumnName><OrderNumber>8</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>svo</ColumnName><OrderNumber>9</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>libro_sueldo</ColumnName><OrderNumber>10</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>anexo</ColumnName><OrderNumber>11</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>capacitacion</ColumnName><OrderNumber>12</OrderNumber></DisplayOrder></DisplayOrders><Groups></Groups><Graphs></Graphs></Output></EntryForm></ReportQuery></Report>

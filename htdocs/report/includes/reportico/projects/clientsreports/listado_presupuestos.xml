@@ -1,0 +1,92 @@
+<?xml version="1.0"?><Report><ReportQuery><Format><ReportTitle>Listado de Presupuestos por fecha de creación</ReportTitle><ReportDescription></ReportDescription><PageSize>.DEFAULT</PageSize><PageOrientation>.DEFAULT</PageOrientation><TopMargin></TopMargin><BottomMargin></BottomMargin><RightMargin></RightMargin><LeftMargin></LeftMargin><pdfFont></pdfFont><pdfFontSize></pdfFontSize><PreExecuteCode>NONE</PreExecuteCode><formBetweenRows>solidline</formBetweenRows><gridDisplay>.DEFAULT</gridDisplay><gridSortable>.DEFAULT</gridSortable><gridSearchable>.DEFAULT</gridSearchable><gridPageable>.DEFAULT</gridPageable><gridPageSize>.DEFAULT</gridPageSize></Format><Datasource><SourceType>database</SourceType><SourceConnection><DatabaseType>mysql</DatabaseType><DatabaseName></DatabaseName><HostName></HostName><ServiceName></ServiceName><UserName></UserName><Password></Password></SourceConnection></Datasource><EntryForm><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection>all</RowSelection><SQL><QuerySql></QuerySql><SQLRaw>SELECT 
+  p.ref AS ref,
+  p.ref_client AS ref_cliente,
+  s.nom AS tercero,
+  DATE_FORMAT(p.datep, &quot;%d-%m-%Y&quot;) AS fecha_presupuesto,
+
+  CASE p.fk_input_reason
+       WHEN 9  THEN 'Socio'
+       WHEN 1  THEN 'Internet'
+       WHEN 2  THEN 'Campaña de mailing'
+       WHEN 3  THEN 'Campaña telefónica'
+       WHEN 4  THEN 'Campaña de fax'
+       WHEN 5  THEN 'Contacto comercial'
+       WHEN 6  THEN 'Contacto de la tienda'
+       WHEN 7  THEN 'Campaña de mailing'
+       WHEN 8  THEN 'Boca a boca'
+       WHEN 11 THEN 'Patrocinador'
+       WHEN 14 THEN 'Contacto pasivo'
+       WHEN 13 THEN 'Contacto proactivo'
+       WHEN 10 THEN 'Empleado'
+       WHEN 12 THEN 'Incoming contact of a customer'
+       WHEN 15 THEN 'Recotización'
+       ELSE 'NULL'
+  END AS origen,
+
+  FORMAT(p.total_ht,2)  AS monto_neto,
+  FORMAT(p.total_tva,2) AS monto_impuesto,
+  FORMAT(p.total_ttc,2) AS monto_con_imp,
+
+  u.login AS autor,
+  DATE_FORMAT(p.datec, &quot;%d-%m-%Y&quot;) AS fecha_creacion,
+
+  CASE p.fk_statut
+       WHEN 0 THEN 'Borrador'
+       WHEN 1 THEN 'Validado'
+       WHEN 2 THEN 'Firmado'
+       WHEN 3 THEN 'No Firmado'
+       WHEN 4 THEN 'Facturado'
+       ELSE 'NULL'
+  END AS estado,
+
+  /* Categorías del cliente (tercero) */
+  GROUP_CONCAT(DISTINCT c.label ORDER BY c.label SEPARATOR ', ') AS categoria_cliente
+
+FROM llx_propal AS p
+LEFT JOIN llx_societe            AS s   ON p.fk_soc = s.rowid
+LEFT JOIN llx_c_country          AS country ON country.rowid = s.fk_pays
+LEFT JOIN llx_c_typent           AS typent  ON typent.id = s.fk_typent
+LEFT JOIN llx_c_departements     AS state   ON state.rowid = s.fk_departement
+LEFT JOIN llx_propal_extrafields AS ef  ON p.rowid = ef.fk_object
+LEFT JOIN llx_user               AS u   ON p.fk_user_author = u.rowid
+LEFT JOIN llx_projet             AS pr  ON pr.rowid = p.fk_projet
+LEFT JOIN llx_c_availability     AS ava ON ava.rowid = p.fk_availability
+
+/* joins de categorías */
+LEFT JOIN llx_categorie_societe  AS cs  ON cs.fk_soc = s.rowid
+LEFT JOIN llx_categorie          AS c   ON c.rowid = cs.fk_categorie
+
+[where Date_format(p.datep,'%Y-%m-%d') between {fechad} and {fechah}] 
+
+
+GROUP BY 
+  p.rowid, p.ref, p.ref_client, s.nom, p.datep, p.fk_input_reason,
+  p.total_ht, p.total_tva, p.total_ttc, u.login, p.datec, p.fk_statut
+
+ORDER BY p.ref DESC;
+</SQLRaw></SQL><QueryColumns><QueryColumn><Name>ref</Name><TableName></TableName><ColumnName>p.ref AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>ref_cliente</Name><TableName></TableName><ColumnName>p.ref_client AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>tercero</Name><TableName></TableName><ColumnName>s.nom AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>fecha_presupuesto</Name><TableName></TableName><ColumnName>DATE_FORMAT(p.datep, &quot;%d-%m-%Y&quot;) AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>origen</Name><TableName></TableName><ColumnName>CASE p.fk_input_reason
+       WHEN 9  THEN 'Socio'
+       WHEN 1  THEN 'Internet'
+       WHEN 2  THEN 'Campaña de mailing'
+       WHEN 3  THEN 'Campaña telefónica'
+       WHEN 4  THEN 'Campaña de fax'
+       WHEN 5  THEN 'Contacto comercial'
+       WHEN 6  THEN 'Contacto de la tienda'
+       WHEN 7  THEN 'Campaña de mailing'
+       WHEN 8  THEN 'Boca a boca'
+       WHEN 11 THEN 'Patrocinador'
+       WHEN 14 THEN 'Contacto pasivo'
+       WHEN 13 THEN 'Contacto proactivo'
+       WHEN 10 THEN 'Empleado'
+       WHEN 12 THEN 'Incoming contact of a customer'
+       WHEN 15 THEN 'Recotización'
+       ELSE 'NULL'
+  END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>monto_neto</Name><TableName></TableName><ColumnName>FORMAT(p.total_ht,2)  AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>monto_impuesto</Name><TableName></TableName><ColumnName>FORMAT(p.total_tva,2) AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>monto_con_imp</Name><TableName></TableName><ColumnName>FORMAT(p.total_ttc,2) AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>autor</Name><TableName></TableName><ColumnName>u.login AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>fecha_creacion</Name><TableName></TableName><ColumnName>DATE_FORMAT(p.datec, &quot;%d-%m-%Y&quot;) AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>estado</Name><TableName></TableName><ColumnName>CASE p.fk_statut
+       WHEN 0 THEN 'Borrador'
+       WHEN 1 THEN 'Validado'
+       WHEN 2 THEN 'Firmado'
+       WHEN 3 THEN 'No Firmado'
+       WHEN 4 THEN 'Facturado'
+       ELSE 'NULL'
+  END AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>categoria_cliente</Name><TableName></TableName><ColumnName>/* Categorías del cliente (tercero) */
+  GROUP_CONCAT(DISTINCT c.label ORDER BY c.label SEPARATOR ', ') AS</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn></QueryColumns><OrderColumns></OrderColumns><PreSQLS></PreSQLS></Query><Assignments></Assignments><Criteria><CriteriaItem><Name>fechad</Name><Title>Fecha desde</Title><QueryTableName></QueryTableName><QueryColumnName></QueryColumnName><CriteriaType>DATE</CriteriaType><CriteriaHelp></CriteriaHelp><CriteriaDisplay>NOINPUT</CriteriaDisplay><ExpandDisplay>NOINPUT</ExpandDisplay><CriteriaRequired>yes</CriteriaRequired><CriteriaHidden>.DEFAULT</CriteriaHidden><CriteriaDisplayGroup></CriteriaDisplayGroup><ReturnColumn></ReturnColumn><DisplayColumn></DisplayColumn><OverviewColumn></OverviewColumn><MatchColumn></MatchColumn><CriteriaDefaults></CriteriaDefaults><CriteriaList></CriteriaList><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection></RowSelection><SQLRaw></SQLRaw><SQL><QuerySql></QuerySql></SQL><QueryColumns></QueryColumns><OrderColumns></OrderColumns><Assignments></Assignments></Query><CriteriaLinks></CriteriaLinks></CriteriaItem><CriteriaItem><Name>fechah</Name><Title>Fecha hasta</Title><QueryTableName></QueryTableName><QueryColumnName></QueryColumnName><CriteriaType>DATE</CriteriaType><CriteriaHelp></CriteriaHelp><CriteriaDisplay>NOINPUT</CriteriaDisplay><ExpandDisplay>NOINPUT</ExpandDisplay><CriteriaRequired>yes</CriteriaRequired><CriteriaHidden>.DEFAULT</CriteriaHidden><CriteriaDisplayGroup></CriteriaDisplayGroup><ReturnColumn></ReturnColumn><DisplayColumn></DisplayColumn><OverviewColumn></OverviewColumn><MatchColumn></MatchColumn><CriteriaDefaults></CriteriaDefaults><CriteriaList></CriteriaList><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection></RowSelection><SQLRaw></SQLRaw><SQL><QuerySql></QuerySql></SQL><QueryColumns></QueryColumns><OrderColumns></OrderColumns><Assignments></Assignments></Query><CriteriaLinks></CriteriaLinks></CriteriaItem></Criteria><Output><PageHeaders></PageHeaders><PageFooters></PageFooters><DisplayOrders><DisplayOrder><ColumnName>ref</ColumnName><OrderNumber>1</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>ref_cliente</ColumnName><OrderNumber>2</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>tercero</ColumnName><OrderNumber>3</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>origen</ColumnName><OrderNumber>4</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>monto_neto</ColumnName><OrderNumber>5</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>monto_impuesto</ColumnName><OrderNumber>6</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>monto_con_imp</ColumnName><OrderNumber>7</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>autor</ColumnName><OrderNumber>8</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>fecha_creacion</ColumnName><OrderNumber>9</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>estado</ColumnName><OrderNumber>10</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>fecha_presupuesto</ColumnName><OrderNumber>11</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>categoria_cliente</ColumnName><OrderNumber>12</OrderNumber></DisplayOrder></DisplayOrders><Groups></Groups><Graphs></Graphs></Output></EntryForm></ReportQuery></Report>

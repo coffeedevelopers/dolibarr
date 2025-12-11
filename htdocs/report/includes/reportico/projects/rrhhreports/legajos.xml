@@ -1,0 +1,157 @@
+<?xml version="1.0"?><Report><ReportQuery><Format><ReportTitle>Listado de Legajos</ReportTitle><ReportDescription></ReportDescription><PageSize>.DEFAULT</PageSize><PageOrientation>.DEFAULT</PageOrientation><TopMargin></TopMargin><BottomMargin></BottomMargin><RightMargin></RightMargin><LeftMargin></LeftMargin><pdfFont></pdfFont><pdfFontSize></pdfFontSize><PreExecuteCode>NONE</PreExecuteCode><formBetweenRows>solidline</formBetweenRows><gridDisplay>.DEFAULT</gridDisplay><gridSortable>.DEFAULT</gridSortable><gridSearchable>.DEFAULT</gridSearchable><gridPageable>.DEFAULT</gridPageable><gridPageSize>.DEFAULT</gridPageSize></Format><Datasource><SourceType>database</SourceType><SourceConnection><DatabaseType>mysql</DatabaseType><DatabaseName></DatabaseName><HostName></HostName><ServiceName></ServiceName><UserName></UserName><Password></Password></SourceConnection></Datasource><EntryForm><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection>all</RowSelection><SQL><QuerySql></QuerySql><SQLRaw>SELECT uue.legajo as legajo,
+	CONCAT(uu.firstname, ' ', uu.lastname) As empleado,
+	uu.dateemployment as fecha_ingreso,
+	CASE uue.categlaboral
+         when 1 then 'GERENTE'
+         when 2 then 'OFICIAL (JC)'
+		 when 3 then 'OFICIAL (JR)'
+		 when 4 then 'OFICIAL 1RA (JC)'
+		 when 5 then 'OFICIAL 1RA (JR)'
+		 when 6 then 'SUPERVISOR'
+		 when 7 then 'COORDINADOR A'
+		 when 8 then 'COORDINADOR B / OFICIAL ESPECIALIZADO'
+		 when 9 then 'COORDINADOR C'
+		 when 10 then 'OFICIAL ESPECIALIZADO / VIDRIEROS'
+		 when 11 then 'ADMINISTRATIVO A'
+		 when 12 then 'ADMINISTRATIVO A (6 HS)'
+		 when 13 then 'ADMINISTRATIVO A (4 HS)'
+		 when 14 then 'ADMINISTRATIVO B'
+		 when 15 then 'ADMINISTRATIVO C'
+		 when 16 then 'ADMINISTRATIVO D'
+		 when 17 then 'ADMINISTRATIVO E'
+		 when 18 then 'ADMINISTRATIVO F'
+         else 'S/D'
+		END as categoria_laboral,
+	edad,
+	CASE uue.estadocivil
+         when 1 then 'Soltero/a'
+         when 2 then 'Casado/a'
+		 when 3 then 'Divorciado/a'
+		 when 4 then 'Viudo/a'
+		 else 'S/D'
+		END as estado_civil,
+	cuil,
+	fn_cod_ooss(codobrasocial) as codobrasocial,
+	CASE uue.modcontratacion
+         when 1 then '001 - A TIEMPO PARCIAL INDETERMINADO / TRABAJO PERMANENTE'
+         when 2 then '008 - A TIEMPO COMPLETO INDETERMINADO / TRABAJO PERMANENTE'
+		 when 3 then '011 - TRABAJO DE TEMPORADA'
+		 when 4 then '012 - TRABAJO EVENTUAL'
+		 when 5 then '014 - NUEVO PERIODO DE PRUEBA'
+		 else 'S/D'
+		END as mod_contratacion,
+	cedulajuicio,
+	actaconciliacion,
+	eppadic,
+	CASE uue.jornadalaboral
+         when 1 then '50 HS'
+         when 2 then '75 HS'
+		 when 3 then '100 HS'
+		 when 4 then '125 HS'
+		 when 5 then '150 HS'
+		 when 6 then '175 HS'
+		 when 7 then '200 HS'
+         else 'S/D'
+		END as jornada_laboral,
+	nacionalidad,
+	docdeindentidad as documento_identidad,
+	nompadre as nombre_padre,
+	nommadre as nombre_madre,
+	beneficiarioscvo,
+	cedulademanda,
+	planillashorarias,
+	fotocopiadni,
+	constanciacuil,
+	certifantecedentes,
+	curriculum,
+	capacitacionrrhh,
+	capacitacionoperac,
+	certificadsomedicos,
+	certificadotrabajo,
+	certificadoanses,
+	notificacionjuicio,
+	CASE uue.eppnuevo
+         when 1 then 'UNIFORME'
+         when 2 then 'CALZADO'
+		 when 3 then 'GAFAS'
+		 when 4 then 'GUANTES'
+		 when 5 then 'PROTECTORES AUDITIVOS'
+		 when 6 then 'BARBIJO'
+		 when 7 then 'MASCARA FACIAL'
+		 when 8 then 'CASCO'
+		 when 9 then 'CHALECO'
+		 when 10 then 'BUZO'
+		 when 11 then 'CHAQUETA'
+         else 'S/D'
+		END as eppnuevo,
+	CASE uue.convcolect
+         when 1 then '0130/75 COMERCIO – CONFEDERACION GENERAL EMPLEADOS DE COMERCIO DE LA REPUBLICA ARGENTINA C/ COMISION COORDINADORA PATRONAL DE ACTIVIDADES MERCANTILES Y OTRAS'
+         when 2 then '0281/96 LIMPIEZA – SINDICATO DE OBREROS DE MAESTRANZA C/ ASOCIACION DE EMPRESAS DE LIMPIEZA Y OTRAS'
+		 when 3 then '0	FUERA DE CONVENIO'
+		 when 3 then '0392/04 LIMPIEZA – SINDICATO DE OBREROS Y EMPLEADOS DE EMPRESAS DE LIMPIEZA'
+         else 'S/D'
+		END as convenio_colectivo
+FROM llx_user as uu
+LEFT JOIN llx_user_extrafields as uue ON uue.fk_object = uu.rowid
+WHERE uu.dateemploymentend is null</SQLRaw></SQL><QueryColumns><QueryColumn><Name>legajo</Name><TableName></TableName><ColumnName>uue.legajo as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>empleado</Name><TableName></TableName><ColumnName>CONCAT(uu.firstname, ' ', uu.lastname) As</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>fecha_ingreso</Name><TableName></TableName><ColumnName>uu.dateemployment as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>categoria_laboral</Name><TableName></TableName><ColumnName>CASE uue.categlaboral
+         when 1 then 'GERENTE'
+         when 2 then 'OFICIAL (JC)'
+		 when 3 then 'OFICIAL (JR)'
+		 when 4 then 'OFICIAL 1RA (JC)'
+		 when 5 then 'OFICIAL 1RA (JR)'
+		 when 6 then 'SUPERVISOR'
+		 when 7 then 'COORDINADOR A'
+		 when 8 then 'COORDINADOR B / OFICIAL ESPECIALIZADO'
+		 when 9 then 'COORDINADOR C'
+		 when 10 then 'OFICIAL ESPECIALIZADO / VIDRIEROS'
+		 when 11 then 'ADMINISTRATIVO A'
+		 when 12 then 'ADMINISTRATIVO A (6 HS)'
+		 when 13 then 'ADMINISTRATIVO A (4 HS)'
+		 when 14 then 'ADMINISTRATIVO B'
+		 when 15 then 'ADMINISTRATIVO C'
+		 when 16 then 'ADMINISTRATIVO D'
+		 when 17 then 'ADMINISTRATIVO E'
+		 when 18 then 'ADMINISTRATIVO F'
+         else 'S/D'
+		END as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>edad</Name><TableName></TableName><ColumnName>edad</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>estado_civil</Name><TableName></TableName><ColumnName>CASE uue.estadocivil
+         when 1 then 'Soltero/a'
+         when 2 then 'Casado/a'
+		 when 3 then 'Divorciado/a'
+		 when 4 then 'Viudo/a'
+		 else 'S/D'
+		END as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>cuil</Name><TableName></TableName><ColumnName>cuil</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>codobrasocial</Name><TableName></TableName><ColumnName>fn_cod_ooss(codobrasocial) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>mod_contratacion</Name><TableName></TableName><ColumnName>CASE uue.modcontratacion
+         when 1 then '001 - A TIEMPO PARCIAL INDETERMINADO / TRABAJO PERMANENTE'
+         when 2 then '008 - A TIEMPO COMPLETO INDETERMINADO / TRABAJO PERMANENTE'
+		 when 3 then '011 - TRABAJO DE TEMPORADA'
+		 when 4 then '012 - TRABAJO EVENTUAL'
+		 when 5 then '014 - NUEVO PERIODO DE PRUEBA'
+		 else 'S/D'
+		END as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>cedulajuicio</Name><TableName></TableName><ColumnName>cedulajuicio</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>actaconciliacion</Name><TableName></TableName><ColumnName>actaconciliacion</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>eppadic</Name><TableName></TableName><ColumnName>eppadic</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>jornada_laboral</Name><TableName></TableName><ColumnName>CASE uue.jornadalaboral
+         when 1 then '50 HS'
+         when 2 then '75 HS'
+		 when 3 then '100 HS'
+		 when 4 then '125 HS'
+		 when 5 then '150 HS'
+		 when 6 then '175 HS'
+		 when 7 then '200 HS'
+         else 'S/D'
+		END as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>nacionalidad</Name><TableName></TableName><ColumnName>nacionalidad</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>documento_identidad</Name><TableName></TableName><ColumnName>docdeindentidad as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>nombre_padre</Name><TableName></TableName><ColumnName>nompadre as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>nombre_madre</Name><TableName></TableName><ColumnName>nommadre as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>beneficiarioscvo</Name><TableName></TableName><ColumnName>beneficiarioscvo</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>cedulademanda</Name><TableName></TableName><ColumnName>cedulademanda</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>planillashorarias</Name><TableName></TableName><ColumnName>planillashorarias</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>fotocopiadni</Name><TableName></TableName><ColumnName>fotocopiadni</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>constanciacuil</Name><TableName></TableName><ColumnName>constanciacuil</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>certifantecedentes</Name><TableName></TableName><ColumnName>certifantecedentes</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>curriculum</Name><TableName></TableName><ColumnName>curriculum</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>capacitacionrrhh</Name><TableName></TableName><ColumnName>capacitacionrrhh</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>capacitacionoperac</Name><TableName></TableName><ColumnName>capacitacionoperac</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>certificadsomedicos</Name><TableName></TableName><ColumnName>certificadsomedicos</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>certificadotrabajo</Name><TableName></TableName><ColumnName>certificadotrabajo</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>certificadoanses</Name><TableName></TableName><ColumnName>certificadoanses</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>notificacionjuicio</Name><TableName></TableName><ColumnName>notificacionjuicio</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>eppnuevo</Name><TableName></TableName><ColumnName>CASE uue.eppnuevo
+         when 1 then 'UNIFORME'
+         when 2 then 'CALZADO'
+		 when 3 then 'GAFAS'
+		 when 4 then 'GUANTES'
+		 when 5 then 'PROTECTORES AUDITIVOS'
+		 when 6 then 'BARBIJO'
+		 when 7 then 'MASCARA FACIAL'
+		 when 8 then 'CASCO'
+		 when 9 then 'CHALECO'
+		 when 10 then 'BUZO'
+		 when 11 then 'CHAQUETA'
+         else 'S/D'
+		END as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>convenio_colectivo</Name><TableName></TableName><ColumnName>CASE uue.convcolect
+         when 1 then '0130/75 COMERCIO – CONFEDERACION GENERAL EMPLEADOS DE COMERCIO DE LA REPUBLICA ARGENTINA C/ COMISION COORDINADORA PATRONAL DE ACTIVIDADES MERCANTILES Y OTRAS'
+         when 2 then '0281/96 LIMPIEZA – SINDICATO DE OBREROS DE MAESTRANZA C/ ASOCIACION DE EMPRESAS DE LIMPIEZA Y OTRAS'
+		 when 3 then '0	FUERA DE CONVENIO'
+		 when 3 then '0392/04 LIMPIEZA – SINDICATO DE OBREROS Y EMPLEADOS DE EMPRESAS DE LIMPIEZA'
+         else 'S/D'
+		END as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn></QueryColumns><OrderColumns></OrderColumns><PreSQLS></PreSQLS></Query><Assignments></Assignments><Criteria></Criteria><Output><PageHeaders></PageHeaders><PageFooters></PageFooters><DisplayOrders><DisplayOrder><ColumnName>legajo</ColumnName><OrderNumber>1</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>empleado</ColumnName><OrderNumber>2</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>fecha_ingreso</ColumnName><OrderNumber>3</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>categoria_laboral</ColumnName><OrderNumber>4</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>edad</ColumnName><OrderNumber>5</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>estado_civil</ColumnName><OrderNumber>6</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>cuil</ColumnName><OrderNumber>7</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>codobrasocial</ColumnName><OrderNumber>8</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>mod_contratacion</ColumnName><OrderNumber>9</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>cedulajuicio</ColumnName><OrderNumber>10</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>actaconciliacion</ColumnName><OrderNumber>11</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>eppadic</ColumnName><OrderNumber>12</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>jornada_laboral</ColumnName><OrderNumber>13</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>nacionalidad</ColumnName><OrderNumber>14</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>documento_identidad</ColumnName><OrderNumber>15</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>nombre_padre</ColumnName><OrderNumber>16</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>nombre_madre</ColumnName><OrderNumber>17</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>beneficiarioscvo</ColumnName><OrderNumber>18</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>cedulademanda</ColumnName><OrderNumber>19</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>planillashorarias</ColumnName><OrderNumber>20</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>fotocopiadni</ColumnName><OrderNumber>21</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>constanciacuil</ColumnName><OrderNumber>22</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>certifantecedentes</ColumnName><OrderNumber>23</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>curriculum</ColumnName><OrderNumber>24</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>capacitacionrrhh</ColumnName><OrderNumber>25</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>capacitacionoperac</ColumnName><OrderNumber>26</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>certificadsomedicos</ColumnName><OrderNumber>27</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>certificadotrabajo</ColumnName><OrderNumber>28</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>certificadoanses</ColumnName><OrderNumber>29</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>notificacionjuicio</ColumnName><OrderNumber>30</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>eppnuevo</ColumnName><OrderNumber>31</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>convenio_colectivo</ColumnName><OrderNumber>32</OrderNumber></DisplayOrder></DisplayOrders><Groups></Groups><Graphs></Graphs></Output></EntryForm></ReportQuery></Report>

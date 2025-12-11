@@ -1,0 +1,22 @@
+# Dolibarr language file - es_AR - Report
+CHARSET=UTF-8
+# Module
+Module500350Name=Report
+Module500350Desc=Reportico en Dolibarr
+# Admin
+reportConfig=Configuracion de Report
+clientsreports=Reportes Clientes
+suppliersreports=Reportes Proveedores
+productsreports=Reportes Productos
+financialsreports=Reportes Financieros
+rrhhreports=Reportes de RRHH
+operationsreports=Reportes de Operaciones
+administrationsreports=Reportes de Asignaciones
+ordenesreports=Reportes de Ordenes
+viewreports=Ver reportes
+editreports=Editar reportes
+ticketsreports=Reportes de Tickets
+reports=Reportes
+Reportsetup=Configuración Reportes
+
+

@@ -1,0 +1,119 @@
+<?xml version="1.0"?><Report><ReportQuery><Format><ReportTitle>Reporte de Cobranzas</ReportTitle><ReportDescription></ReportDescription><PageSize>.DEFAULT</PageSize><PageOrientation>.DEFAULT</PageOrientation><TopMargin></TopMargin><BottomMargin></BottomMargin><RightMargin></RightMargin><LeftMargin></LeftMargin><pdfFont></pdfFont><pdfFontSize></pdfFontSize><PreExecuteCode>NONE</PreExecuteCode><formBetweenRows>solidline</formBetweenRows><gridDisplay>.DEFAULT</gridDisplay><gridSortable>.DEFAULT</gridSortable><gridSearchable>.DEFAULT</gridSearchable><gridPageable>.DEFAULT</gridPageable><gridPageSize>.DEFAULT</gridPageSize></Format><Datasource><SourceType>database</SourceType><SourceConnection><DatabaseType>mysql</DatabaseType><DatabaseName></DatabaseName><HostName></HostName><ServiceName></ServiceName><UserName></UserName><Password></Password></SourceConnection></Datasource><EntryForm><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection>all</RowSelection><SQL><QuerySql></QuerySql><SQLRaw>SELECT cat.label as Region, fc.rowid, fc.ref as Numero, fc.datef as Fecha, soc.nom as Cliente, format(fc.total_ttc,2,'de_DE') as Total, 
+	(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 6) as RET_IVA_POR_COBRANZAS,
+	(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 7) as RET_SUSS,
+	(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 8) as RET_IIBB_CABA,
+	(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 9) as RET_IIBB_BS_AS,	
+	(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 16) as RET_IIBB_STA_FE,
+	(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 17) as RET_IIBB_VARIAS,	
+	(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 5) as RET_IIBB_SIRCREB,
+	(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 4) as RET_GCIAS_COB,	
+	(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and (b1.fk_account = 25 OR b1.fk_account = 2 OR b1.fk_account = 23 OR b1.fk_account = 10 OR b1.fk_account = 11 OR b1.fk_account = 12)) as Transferencia,	
+	(SELECT format(sum(pf1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 3) as CH_Importe_Imputado
+FROM llx_facture as fc 
+INNER JOIN llx_societe as soc ON fc.fk_soc = soc.rowid
+LEFT JOIN llx_categorie_societe as cc ON soc.rowid = cc.fk_soc 
+LEFT JOIN llx_categorie as cat ON cc.fk_categorie = cat.rowid
+WHERE 1= 1
+[and Date_format(fc.datef,'%Y-%m-%d') between {fechac} and {fechaf}]
+[and cc.fk_categorie = {Region}
+</SQLRaw></SQL><QueryColumns><QueryColumn><Name>Region</Name><TableName></TableName><ColumnName>cat.label as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>rowid</Name><TableName>fc</TableName><ColumnName>rowid</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>Numero</Name><TableName></TableName><ColumnName>fc.ref as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>Fecha</Name><TableName></TableName><ColumnName>fc.datef as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>Cliente</Name><TableName></TableName><ColumnName>soc.nom as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>Total</Name><TableName></TableName><ColumnName>format(fc.total_ttc,2,'de_DE') as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>RET_IVA_POR_COBRANZAS</Name><TableName></TableName><ColumnName>(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 6) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>RET_SUSS</Name><TableName></TableName><ColumnName>(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 7) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>RET_IIBB_CABA</Name><TableName></TableName><ColumnName>(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 8) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>RET_IIBB_BS_AS</Name><TableName></TableName><ColumnName>(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 9) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>RET_IIBB_STA_FE</Name><TableName></TableName><ColumnName>(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 16) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>RET_IIBB_VARIAS</Name><TableName></TableName><ColumnName>(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 17) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>RET_IIBB_SIRCREB</Name><TableName></TableName><ColumnName>(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 5) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>RET_GCIAS_COB</Name><TableName></TableName><ColumnName>(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 4) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>Transferencia</Name><TableName></TableName><ColumnName>(SELECT format(sum(b1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and (b1.fk_account = 25 OR b1.fk_account = 2 OR b1.fk_account = 23 OR b1.fk_account = 10 OR b1.fk_account = 11 OR b1.fk_account = 12)) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>CH_Importe_Imputado</Name><TableName></TableName><ColumnName>(SELECT format(sum(pf1.amount),2,'de_DE')
+	FROM llx_paiement_facture pf1
+	inner join llx_paiement as p1 on p1.rowid = pf1.fk_paiement
+	inner join llx_bank as b1 on b1.rowid = p1.fk_bank
+	WHERE pf1.fk_facture = fc.rowid
+	and b1.fk_account = 3) as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn></QueryColumns><OrderColumns></OrderColumns><PreSQLS></PreSQLS></Query><Assignments></Assignments><Criteria><CriteriaItem><Name>fechac</Name><Title>Fecha Desde</Title><QueryTableName></QueryTableName><QueryColumnName></QueryColumnName><CriteriaType>DATE</CriteriaType><CriteriaHelp></CriteriaHelp><CriteriaDisplay>NOINPUT</CriteriaDisplay><ExpandDisplay>NOINPUT</ExpandDisplay><CriteriaRequired>yes</CriteriaRequired><CriteriaHidden>.DEFAULT</CriteriaHidden><CriteriaDisplayGroup></CriteriaDisplayGroup><ReturnColumn></ReturnColumn><DisplayColumn></DisplayColumn><OverviewColumn></OverviewColumn><MatchColumn></MatchColumn><CriteriaDefaults></CriteriaDefaults><CriteriaList></CriteriaList><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection></RowSelection><SQLRaw></SQLRaw><SQL><QuerySql></QuerySql></SQL><QueryColumns></QueryColumns><OrderColumns></OrderColumns><Assignments></Assignments></Query><CriteriaLinks></CriteriaLinks></CriteriaItem><CriteriaItem><Name>fechaf</Name><Title>Fecha Hasta</Title><QueryTableName></QueryTableName><QueryColumnName></QueryColumnName><CriteriaType>DATE</CriteriaType><CriteriaHelp></CriteriaHelp><CriteriaDisplay>NOINPUT</CriteriaDisplay><ExpandDisplay>NOINPUT</ExpandDisplay><CriteriaRequired>yes</CriteriaRequired><CriteriaHidden>.DEFAULT</CriteriaHidden><CriteriaDisplayGroup></CriteriaDisplayGroup><ReturnColumn></ReturnColumn><DisplayColumn></DisplayColumn><OverviewColumn></OverviewColumn><MatchColumn></MatchColumn><CriteriaDefaults></CriteriaDefaults><CriteriaList></CriteriaList><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection></RowSelection><SQLRaw></SQLRaw><SQL><QuerySql></QuerySql></SQL><QueryColumns></QueryColumns><OrderColumns></OrderColumns><Assignments></Assignments></Query><CriteriaLinks></CriteriaLinks></CriteriaItem><CriteriaItem><Name>Region</Name><Title>Region</Title><QueryTableName></QueryTableName><QueryColumnName></QueryColumnName><CriteriaType>LOOKUP</CriteriaType><CriteriaHelp></CriteriaHelp><CriteriaDisplay>DROPDOWN</CriteriaDisplay><ExpandDisplay>NOINPUT</ExpandDisplay><CriteriaRequired>yes</CriteriaRequired><CriteriaHidden>.DEFAULT</CriteriaHidden><CriteriaDisplayGroup></CriteriaDisplayGroup><ReturnColumn>rowid</ReturnColumn><DisplayColumn>label</DisplayColumn><OverviewColumn>rowid</OverviewColumn><MatchColumn>rowid</MatchColumn><CriteriaDefaults></CriteriaDefaults><CriteriaList></CriteriaList><Query><TableSql></TableSql><WhereSql></WhereSql><GroupSql></GroupSql><RowSelection></RowSelection><SQLRaw>SELECT rowid, label FROM `llx_categorie` WHERE type = 2</SQLRaw><SQL><QuerySql></QuerySql></SQL><QueryColumns><QueryColumn><Name>rowid</Name><TableName></TableName><ColumnName>rowid</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><justify>left</justify></Format></QueryColumn><QueryColumn><Name>label</Name><TableName></TableName><ColumnName>label</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><justify>left</justify></Format></QueryColumn></QueryColumns><OrderColumns></OrderColumns><Assignments></Assignments></Query><CriteriaLinks></CriteriaLinks></CriteriaItem></Criteria><Output><PageHeaders></PageHeaders><PageFooters></PageFooters><DisplayOrders><DisplayOrder><ColumnName>rowid</ColumnName><OrderNumber>1</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>Numero</ColumnName><OrderNumber>2</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>Fecha</ColumnName><OrderNumber>3</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>Cliente</ColumnName><OrderNumber>4</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>Total</ColumnName><OrderNumber>5</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>RET_IVA_POR_COBRANZAS</ColumnName><OrderNumber>6</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>RET_SUSS</ColumnName><OrderNumber>7</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>RET_IIBB_CABA</ColumnName><OrderNumber>8</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>RET_IIBB_BS_AS</ColumnName><OrderNumber>9</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>RET_IIBB_STA_FE</ColumnName><OrderNumber>10</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>RET_IIBB_VARIAS</ColumnName><OrderNumber>11</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>RET_IIBB_SIRCREB</ColumnName><OrderNumber>12</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>RET_GCIAS_COB</ColumnName><OrderNumber>13</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>Transferencia</ColumnName><OrderNumber>14</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>CH_Importe_Imputado</ColumnName><OrderNumber>15</OrderNumber></DisplayOrder><DisplayOrder><ColumnName>Region</ColumnName><OrderNumber>16</OrderNumber></DisplayOrder></DisplayOrders><Groups></Groups><Graphs></Graphs></Output></EntryForm></ReportQuery></Report>
