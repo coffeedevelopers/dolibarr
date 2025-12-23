@@ -58,6 +58,7 @@ class reportico_panel
 	var $smarty = false;
 	var $reportlink_report = false;
 	var $reportlink_report_item = false;
+	var $text = "";
 
 	function __construct(&$in_query, $in_type)
 	{
@@ -286,7 +287,7 @@ class reportico_panel
 				{
 					if ( !($desc = sw_translate_report_desc($this->query->xmloutfile)) )
 						$desc = $this->query->derive_attribute("ReportDescription", false); 
-					$this->smarty->debug = true;
+					$this->smarty->debugging = true;
 					$this->smarty->assign("REPORT_DESCRIPTION", $desc);
 				}
 				break;
@@ -689,6 +690,8 @@ class reportico_xml_reader
 	var	$search_response = false;
 	var	$element_counts = array();
     var $wizard_linked_to = false;
+	var $field_display = array();
+	var $gotdata = false;
 
   	function __construct (&$query, $filename, $xmlstring = false, $search_tag = false ) 
 	{
@@ -1031,10 +1034,11 @@ class reportico_xml_reader
             $this->field_display["YTickLabelInterval"]["Type"] = "HIDE";
         }
 
-    	xml_set_object($this->parser, $this);
-    	xml_set_element_handler($this->parser, 'start_element', 'end_element');
-    	xml_set_character_data_handler($this->parser, 'cdata');
-    	xml_parser_set_option($this->parser,XML_OPTION_CASE_FOLDING, false);
+    	$parser = $this->parser;
+    	$reader = $this;
+			xml_set_element_handler($parser, function($p, $element, $attributes) use ($reader) { return $reader->start_element($p, $element, $attributes); }, function($p, $element) use ($reader) { return $reader->end_element($p, $element); });
+    	xml_set_character_data_handler($parser, function($p, $text) use ($reader) { return $reader->cdata($p, $text); });
+    	xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, false);
 
     	// 1 = single field, 2 = array field, 3 = record container
     	$this->xmltag_type = array('Assignment' => 2,
@@ -1144,7 +1148,7 @@ class reportico_xml_reader
 		//var_dump($this->data);
   	}
 
-	function start_element ($p, $element, &$attributes) 
+	function start_element ($p, $element, $attributes) 
 	{
 		//$element = strtolower($element);
 

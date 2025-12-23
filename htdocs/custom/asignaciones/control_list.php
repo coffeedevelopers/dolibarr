@@ -149,7 +149,7 @@ if(isset($search['timeendreal'])){
 $fieldstosearchall = array();
 foreach($object->fields as $key => $val)
 {
-	if ($val['searchall']) $fieldstosearchall['t.'.$key]=$val['label'];
+	if (!empty($val['searchall'])) $fieldstosearchall['t.'.$key]=$val['label'];
 }
 
 // Definition of fields for list

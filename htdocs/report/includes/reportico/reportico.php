@@ -124,7 +124,7 @@ class reportico_object
 
 	function error($in_text)
 	{
-		trigger_error($in_text, E_USER_ERROR);
+		handle_error($in_text);
 	}
 
 
@@ -357,6 +357,11 @@ class reportico extends reportico_object
     var $reportico_ajax_mode=true;
     var $reportico_ajax_preloaded=false;
     var $clear_reportico_session=false;
+	var $reports_path = "";
+	var $sqlinout = false;
+	var $defaults = null;
+	var $range_start = "";
+	var $range_end = "";
 
 	var $target_show_graph = false;
 	var $target_show_detail = false;
@@ -414,20 +419,20 @@ class reportico extends reportico_object
 
     // Output control 
     var $output_skipline = false;
-    var $output_allcell_styles = false;
-    var $output_criteria_styles = false;
-    var $output_header_styles = false;
+	var $output_allcell_styles = array();
+	var $output_criteria_styles = array();
+	var $output_header_styles = array();
     var $output_hyperlinks = false;
     var $output_images = false;
-    var $output_row_styles = false;
-    var $output_page_styles = false;
-    var $output_before_form_row_styles = false;
-    var $output_after_form_row_styles = false;
-    var $output_group_header_styles = false;
-    var $output_group_header_label_styles = false;
-    var $output_group_header_value_styles = false;
-    var $output_group_trailer_styles = false;
-    var $output_reportbody_styles = false;
+	var $output_row_styles = array();
+	var $output_page_styles = array();
+	var $output_before_form_row_styles = array();
+	var $output_after_form_row_styles = array();
+	var $output_group_header_styles = array();
+	var $output_group_header_label_styles = array();
+	var $output_group_header_value_styles = array();
+	var $output_group_trailer_styles = array();
+	var $output_reportbody_styles = array();
 	var $admin_accessible = true;
 
 
@@ -1462,7 +1467,7 @@ class reportico extends reportico_object
                             $this->lookup_queries[$col->query_name]->column_value, 
                             $this->lookup_queries[$col->query_name]->column_value,
                             $this->lookup_queries[$col->query_name]->column_value2) )
-                            trigger_error( "Date default '".$this->defaults[0]."' is not a valid date range. Should be 2 values separated by '-'. Each one should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc", E_USER_ERROR );
+							handle_error( "Date default '".$this->defaults[0]."' is not a valid date range. Should be 2 values separated by '-'. Each one should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc" );
                     }
                     if ( $this->lookup_queries[$col->query_name]->criteria_type == "DATE" )
                     {
@@ -1472,7 +1477,7 @@ class reportico extends reportico_object
                             $this->lookup_queries[$col->query_name]->column_value, 
                             $this->lookup_queries[$col->query_name]->column_value,
                             $this->lookup_queries[$col->query_name]->column_value2) )
-                        trigger_error( "Date default '".$this->defaults[0]."' is not a valid date. Should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc", E_USER_ERROR );
+						handle_error( "Date default '".$this->defaults[0]."' is not a valid date. Should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc" );
                     }
                 }
 			}
@@ -1690,7 +1695,7 @@ class reportico extends reportico_object
                             $criteriaval,
                             $val1,
                             $val2) )
-                            trigger_error( "Date default '".$criteriaval."' is not a valid date range. Should be 2 values separated by '-'. Each one should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc", E_USER_ERROR );
+							handle_error( "Date default '".$criteriaval."' is not a valid date range. Should be 2 values separated by '-'. Each one should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc" );
                         else
                         {
                             $_REQUEST["MANUAL_".$col->query_name."_FROMDATE"] = $val1;
@@ -1708,7 +1713,7 @@ class reportico extends reportico_object
                             $criteriaval,
                             $val1,
                             $val2) )
-                            trigger_error( "Date default '".$criteriaval."' is not a valid date. Should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc", E_USER_ERROR );
+							handle_error( "Date default '".$criteriaval."' is not a valid date. Should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc" );
                         else
                         {
                             $_REQUEST["MANUAL_".$col->query_name."_FROMDATE"] = $val1;
@@ -4945,7 +4950,7 @@ class reportico extends reportico_object
 					    }
 				    }
 				    $errtext .= "</PRE>";
-				    trigger_error($errtext, E_USER_ERROR);
+				    handle_error($errtext);
 
 			    }
 			    else
@@ -4974,25 +4979,28 @@ class reportico extends reportico_object
         $errorMessage = false;
 
 
-        // If the source is an array then dont try to run SQL
+		// If the source is an array then dont try to run SQL
         if ( get_class($conn) == "reportico_db_array" )
         {
             $recordSet = $conn;
         }
         else
         {
-            try {
-		        if ( !$g_error_status && $conn != false )
-			        $recordSet = $conn->Execute($this->query_statement) ;
-            }
-            catch ( PDOException $ex)
-            {
-                $errorCode = $ex->getCode();
-                $errorMessage = $ex->getMessage();
-                $g_error_status = 1;
-            }
+			$attempted = ( !$g_error_status && $conn != false );
+			if ( $attempted )
+			{
+				try {
+		            $recordSet = $conn->Execute($this->query_statement) ;
+				}
+				catch ( PDOException $ex)
+				{
+					$errorCode = $ex->getCode();
+					$errorMessage = $ex->getMessage();
+					$g_error_status = 1;
+				}
+			}
         }
-        if ( $conn && !$recordSet )
+		if ( $conn && !$recordSet && (!isset($attempted) || $attempted) )
         {
             if ( $errorMessage )
                 handle_error("Query Failed<BR><BR>".$this->query_statement."<br><br>" . 
@@ -5219,7 +5227,7 @@ class reportico extends reportico_object
 		foreach ( $this->columns as $col )
         {
 
-                $col->output_cell_styles = false;
+		$col->output_cell_styles = array();
                 $col->output_images = false;
                 $col->output_hyperlinks = false;
         }
@@ -5436,6 +5444,9 @@ class reportico extends reportico_object
 		$result = 0;
 		if ( $group_name )
 		{
+			if ( !is_array($this->groupvals) )
+				$this->groupvals = array();
+
 			if ( !array_key_exists($group_name, $this->groupvals) )
 				$this->groupvals[$group_name] = 
 					array ( "lineno" => 0 );
@@ -6952,7 +6963,7 @@ class reportico_criteria_column extends reportico_query_column
 			{
                 $dummy="";
                 if ( !convert_date_range_defaults_to_dates("DATE", $this->defaults[0], $this->range_start, $dummy) )
-                    trigger_error( "Date default '".$this->defaults[0]."' is not a valid date. Should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc", E_USER_ERROR );
+				    handle_error( "Date default '".$this->defaults[0]."' is not a valid date. Should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc" );
 			}
             unset ( $_REQUEST["HIDDEN_".$this->query_name."_FROMDATE"] );
             unset ( $_REQUEST["HIDDEN_".$this->query_name."_TODATE"] );
@@ -6995,7 +7006,7 @@ class reportico_criteria_column extends reportico_query_column
 			if ( $this->defaults[0] )
 			{
                 if ( !convert_date_range_defaults_to_dates("DATERANGE", $this->defaults[0], $this->range_start, $this->range_end) )
-                    trigger_error( "Date default '".$this->defaults[0]."' is not a valid date range. Should be 2 values separated by '-'. Each one should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc", E_USER_ERROR );
+				    handle_error( "Date default '".$this->defaults[0]."' is not a valid date range. Should be 2 values separated by '-'. Each one should be in date format (e.g. yyyy-mm-dd, dd/mm/yyyy) or a date type (TODAY, TOMMORROW etc" );
 
                 unset ( $_REQUEST["MANUAL_".$this->query_name."_FROMDATE"] );
                 unset ( $_REQUEST["MANUAL_".$this->query_name."_TODATE"] );
@@ -7177,7 +7188,7 @@ class reportico_criteria_column extends reportico_query_column
 
         if ( !$this->list_values )
         {
-            trigger_error("'$this->query_name' is defined as a custom list criteria type without any list values defined", E_USER_ERROR);
+			handle_error("'$this->query_name' is defined as a custom list criteria type without any list values defined");
         }
 
 		if ( !array_key_exists("clearform", $_REQUEST) )
@@ -7718,6 +7729,7 @@ class reportico_criteria_column extends reportico_query_column
 	{
 
 		$text = "";
+		$lookup_query = $this->lookup_query;
 		if ( $in_is_expanding )
 		{	
 			$tag_pref = "EXPANDED_";
@@ -7806,17 +7818,21 @@ class reportico_criteria_column extends reportico_query_column
                         else
                             $widget_id = "select2_dropdown_";
 
+						$dropdown_class = $lookup_query ? $lookup_query->getBootstrapStyle('design_dropdown') : "";
+
                         if ( $type == "SELECT2SINGLE" )
-						    $text .= '<SELECT id="'.$widget_id.$this->query_name.'" class="'.$this->lookup_query->getBootstrapStyle('design_dropdown').'swPrpDropSelect" name="'.$tag_pref.$this->query_name.'[]" >';
+						    $text .= '<SELECT id="'.$widget_id.$this->query_name.'" class="'.$dropdown_class.'swPrpDropSelect" name="'.$tag_pref.$this->query_name.'[]" >';
                         else
-						    $text .= '<SELECT id="'.$widget_id.$this->query_name.'" class="'.$this->lookup_query->getBootstrapStyle('design_dropdown').'swPrpDropSelect" name="'.$tag_pref.$this->query_name.'[]" multiple>';
+						    $text .= '<SELECT id="'.$widget_id.$this->query_name.'" class="'.$dropdown_class.'swPrpDropSelect" name="'.$tag_pref.$this->query_name.'[]" multiple>';
 					    $text .= '<OPTION></OPTION>';
 						break;
 
 				case "MULTI":
 						$multisize = 12;
-						$res =& $this->lookup_query->targets[0]->results;
-						$k = key($res);
+						$res = array();
+						if ( $lookup_query && isset($lookup_query->targets[0]) && isset($lookup_query->targets[0]->results) && is_array($lookup_query->targets[0]->results) )
+							$res = $lookup_query->targets[0]->results;
+						$k = $res ? key($res) : 0;
 						$multisize = 4;
 						if ( $res && count($res[$k]) > 4 )
 							$multisize = count($res[$k]);
@@ -7825,7 +7841,8 @@ class reportico_criteria_column extends reportico_query_column
 							    $multisize = 10;
 						if ( $in_is_expanding )
 							$multisize = 12;
-						$text .= '<SELECT class="'.$this->lookup_query->getBootstrapStyle('design_dropdown').'swPrpDropSelect" name="'.$tag_pref.$this->query_name.'[]" size="'.$multisize.'" multiple>';
+						$dropdown_class = $lookup_query ? $lookup_query->getBootstrapStyle('design_dropdown') : "";
+						$text .= '<SELECT class="'.$dropdown_class.'swPrpDropSelect" name="'.$tag_pref.$this->query_name.'[]" size="'.$multisize.'" multiple>';
 						break;
 
 				case "CHECKBOX":
@@ -7833,7 +7850,8 @@ class reportico_criteria_column extends reportico_query_column
 						break;
 
 				default:
- 						$text .= '<SELECT class="'.$this->lookup_query->getBootstrapStyle('design_dropdown').'swPrpDropSelectRegular" name="'.$tag_pref.$this->query_name.'">';
+						$dropdown_class = $lookup_query ? $lookup_query->getBootstrapStyle('design_dropdown') : "";
+						$text .= '<SELECT class="'.$dropdown_class.'swPrpDropSelectRegular" name="'.$tag_pref.$this->query_name.'">';
 						break;
 		}
 
@@ -7862,10 +7880,12 @@ class reportico_criteria_column extends reportico_query_column
 		if ( $this->submitted('EXPANDSELECTALL_'.$this->query_name) ) 
 			$selectall = true;
 
-		$res =& $this->lookup_query->targets[0]->results;
+		$res = array();
+		if ( $lookup_query && isset($lookup_query->targets[0]) && isset($lookup_query->targets[0]->results) && is_array($lookup_query->targets[0]->results) )
+			$res = $lookup_query->targets[0]->results;
+
 		if ( !$res )
 		{
-			$res = array();
 			$k = 0;
 		}
 		else
@@ -7875,7 +7895,8 @@ class reportico_criteria_column extends reportico_query_column
 		for ($i = 0; $i < count($res[$k]); $i++ )
 		{
 			$line =&$res[$i];
-			foreach ( $this->lookup_query->columns as $ky => $col )
+			$cols = $lookup_query ? $lookup_query->columns : array();
+			foreach ( $cols as $ky => $col )
 			{
 				if ( $col->lookup_display_flag )
 				{
@@ -8627,7 +8648,7 @@ class reportico_assignment extends reportico_object
                 }
                 else
                 {
-		            trigger_error("User parameter $param, specified but not provided to reportico", E_USER_ERROR);
+			            handle_error("User parameter $param, specified but not provided to reportico");
                 }
             }
         }
@@ -8933,6 +8954,7 @@ class reportico_query_column extends reportico_object
 	var $in_select;
 	var $order_style;
 	var $column_value;
+	var $column_value1;
 	var $column_value2;
 	var $old_column_value = "*&^%_+-=";
 	var $column_value_count;
@@ -8963,7 +8985,7 @@ class reportico_query_column extends reportico_object
 	var $avgsum = 0;
 	var $median = false;
 	var $value_list = array();
-    var $output_cell_styles = false;
+	var $output_cell_styles = array();
     var $output_hyperlinks = false;
     var $output_images = false;
 

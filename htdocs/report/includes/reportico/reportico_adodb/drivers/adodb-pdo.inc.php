@@ -87,6 +87,10 @@ class ADODB_pdo extends ADOConnection {
 	
 	public $dsnType = '';
 	public $stmt = false;
+	public $_driver = null;
+	public $_genIDSQL = 0;
+	public $_dropSeqSQL = 0;
+	public $_stmt = false;
 	
 	function __construct()
 	{
@@ -136,6 +140,8 @@ class ADODB_pdo extends ADOConnection {
 			}
 			
 			//$this->_connectionID->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_SILENT );
+			// For PHP 8+: use exceptions so query errors surface properly.
+			$this->_connectionID->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->_connectionID->setAttribute(PDO::ATTR_CASE,$m);
 			
 			$class = 'ADODB_pdo_'.$this->dsnType;
@@ -189,6 +195,8 @@ class ADODB_pdo extends ADOConnection {
 			}
 			
 			//$this->_connectionID->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_SILENT );
+			// For PHP 8+: use exceptions so query errors surface properly.
+			$this->_connectionID->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->_connectionID->setAttribute(PDO::ATTR_CASE,$m);
 			
 			$class = 'ADODB_pdo_'.$this->dsnType;
@@ -525,6 +533,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 	public $bind = false;
 	public $databaseType = "pdo";		
 	public $dataProvider = "pdo";
+	public $adodbFetchMode = false;
 	
 	function __construct($id,$mode=false)
 	{

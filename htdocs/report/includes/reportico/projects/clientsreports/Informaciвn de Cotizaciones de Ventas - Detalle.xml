@@ -3,7 +3,7 @@
 		pd.description as pr_srv_manual, 
         cat.label as Zona,
         FORMAT(sum(pd.qty),2) as Cantidad,
-		FORMAT(fn_horas_prod(pd.fk_product),2) as Ctd_horas_prod,
+		FORMAT(0,2) as Ctd_horas_prod,
         FORMAT(sum(pd.total_ht),2) as Importe_Total
 from llx_propal p
 inner join llx_propaldet pd on pd.fk_propal = p.rowid

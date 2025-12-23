@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-10-19 15:35:08
+<?php /* Smarty version 2.6.26, created on 2025-12-12 23:25:55
          compiled from prepare.tpl */ ?>
 <?php if (! $this->_tpl_vars['REPORTICO_AJAX_CALLED']): ?>
 <?php if (! $this->_tpl_vars['EMBEDDED_REPORT']): ?>
@@ -1265,4 +1265,4 @@ swPrpSubmit" type="submit" name="EXPANDOK_<?php echo $this->_tpl_vars['EXPANDED_
 <?php if (! $this->_tpl_vars['EMBEDDED_REPORT']): ?> 
 </BODY>
 </HTML>
-<?php endif; ?>
+<?php endif; ?>

@@ -44,6 +44,7 @@ class reportico_report_html extends reportico_report
 	var	$graph_session_placeholder = 0;
 	var	$tbody_started = false;
 	var	$tfoot_started = false;
+    var $throw_page = false;
 	
 	function __construct ()
 	{

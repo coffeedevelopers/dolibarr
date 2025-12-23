@@ -31,7 +31,7 @@
 		 else 'S/D'
 		END as estado_civil,
 	cuil,
-	fn_cod_ooss(codobrasocial) as codobrasocial,
+	uue.codobrasocial as codobrasocial,
 	CASE uue.modcontratacion
          when 1 then '001 - A TIEMPO PARCIAL INDETERMINADO / TRABAJO PERMANENTE'
          when 2 then '008 - A TIEMPO COMPLETO INDETERMINADO / TRABAJO PERMANENTE'
@@ -84,13 +84,7 @@
 		 when 11 then 'CHAQUETA'
          else 'S/D'
 		END as eppnuevo,
-	CASE uue.convcolect
-         when 1 then '0130/75 COMERCIO – CONFEDERACION GENERAL EMPLEADOS DE COMERCIO DE LA REPUBLICA ARGENTINA C/ COMISION COORDINADORA PATRONAL DE ACTIVIDADES MERCANTILES Y OTRAS'
-         when 2 then '0281/96 LIMPIEZA – SINDICATO DE OBREROS DE MAESTRANZA C/ ASOCIACION DE EMPRESAS DE LIMPIEZA Y OTRAS'
-		 when 3 then '0	FUERA DE CONVENIO'
-		 when 3 then '0392/04 LIMPIEZA – SINDICATO DE OBREROS Y EMPLEADOS DE EMPRESAS DE LIMPIEZA'
-         else 'S/D'
-		END as convenio_colectivo
+	'S/D' as convenio_colectivo
 FROM llx_user as uu
 LEFT JOIN llx_user_extrafields as uue ON uue.fk_object = uu.rowid
 WHERE uu.dateemploymentend is null</SQLRaw></SQL><QueryColumns><QueryColumn><Name>legajo</Name><TableName></TableName><ColumnName>uue.legajo as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>empleado</Name><TableName></TableName><ColumnName>CONCAT(uu.firstname, ' ', uu.lastname) As</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>fecha_ingreso</Name><TableName></TableName><ColumnName>uu.dateemployment as</ColumnName><ColumnType>char</ColumnType><ColumnLength>30</ColumnLength><Format><column_display>show</column_display><content_type>plain</content_type><ColumnStartPDF></ColumnStartPDF><justify>left</justify><ColumnWidthPDF></ColumnWidthPDF><ColumnWidthHTML></ColumnWidthHTML><column_title></column_title><tooltip></tooltip><group_header_label>0</group_header_label><group_header_label_xpos></group_header_label_xpos><group_header_data_xpos></group_header_data_xpos><group_trailer_label>0</group_trailer_label></Format></QueryColumn><QueryColumn><Name>categoria_laboral</Name><TableName></TableName><ColumnName>CASE uue.categlaboral

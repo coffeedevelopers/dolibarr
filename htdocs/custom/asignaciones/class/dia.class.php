@@ -175,7 +175,7 @@ class Dia extends CommonObject
 		// Translate some data of arrayofkeyval
 		foreach($this->fields as $key => $val)
 		{
-			if (is_array($val['arrayofkeyval']))
+			if (isset($val['arrayofkeyval']) && is_array($val['arrayofkeyval']))
 			{
 				foreach($val['arrayofkeyval'] as $key2 => $val2)
 				{
@@ -752,6 +752,7 @@ class Dia extends CommonObject
 	    $sql.= " WHERE date = '".date("Y-m-d",$this->date)."'";
 	    $sql.= " AND rowid != '".$this->id."'";
 	    $resql = $this->db->query($sql);
+		
 	    if ($resql)
 	    {
 	        $row = $this->db->fetch_row($resql);

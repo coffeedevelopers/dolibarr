@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-10-22 12:57:26
+<?php /* Smarty version 2.6.26, created on 2025-12-12 23:37:03
          compiled from error.tpl */ ?>
 <div class="swRepForm">
 <?php if (strlen ( $this->_tpl_vars['ERRORMSG'] ) > 0): ?>
@@ -37,4 +37,4 @@
 				</TR>
 			</TABLE>
 <?php endif; ?>
-</div>
+</div>

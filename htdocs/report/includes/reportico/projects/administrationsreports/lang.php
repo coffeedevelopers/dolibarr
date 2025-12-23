@@ -3,9 +3,7 @@ $g_translations = array (
 		"fr_fr" => array (
 			"Source String" => "Translation"
 			),
-		"fr_fr" => array (
-			"Source String" => "Translation"
-			),
+
 		);
 
 $g_report_desc = array ( 
@@ -14,4 +12,4 @@ $g_report_desc = array (
         "Translated description"
 			)
 		);
-?>
+

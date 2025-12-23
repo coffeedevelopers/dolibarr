@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-10-22 19:03:01
+<?php /* Smarty version 2.6.26, created on 2025-12-12 23:45:26
          compiled from execute.tpl */ ?>
 <?php if (! $this->_tpl_vars['REPORTICO_AJAX_CALLED']): ?>
 <?php if (! $this->_tpl_vars['EMBEDDED_REPORT']): ?>
@@ -377,4 +377,4 @@ $this->_sections['critno']['last']       = ($this->_sections['critno']['iteratio
     </div>
   </div>
 </div>
-<?php endif; ?>
+<?php endif; ?>

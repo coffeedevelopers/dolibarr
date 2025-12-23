@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-11-05 17:37:12
+<?php /* Smarty version 2.6.26, created on 2025-12-12 22:53:32
          compiled from menu.tpl */ ?>
 <?php if (! $this->_tpl_vars['REPORTICO_AJAX_CALLED']): ?>
 <?php if (! $this->_tpl_vars['EMBEDDED_REPORT']): ?>
@@ -619,4 +619,4 @@ $this->_sections['menuitem']['last']       = ($this->_sections['menuitem']['iter
 </BODY>
 </HTML>
 <?php endif; ?>
-<?php endif; ?>
+<?php endif; ?>

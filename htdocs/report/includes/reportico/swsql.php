@@ -286,7 +286,7 @@ class reportico_sql_parser
         // is not preceded by a "(" indicating a sub select.
         if ( $selpos == -1 || $frompos == -1 )
         {
-			trigger_error("no SELECT clause specified. Query must contain a 'SELECT'", E_USER_ERROR);
+			handle_error("no SELECT clause specified. Query must contain a 'SELECT'");
         }
         else
         {
@@ -347,7 +347,7 @@ class reportico_sql_parser
 
 		if ( preg_match($upd_match, $sql, $cpt ) )
 		{
-			trigger_error("Update statements are not allowed in designer queries", E_USER_ERROR);
+			handle_error("Update statements are not allowed in designer queries");
 			$sel_type = "UPDATE";
             $this->sql_raw = "#". $this->sql_raw;
             $this->whereoffset = 0;
@@ -355,7 +355,7 @@ class reportico_sql_parser
 
 		if ( preg_match($del_match, $sql, $cpt ) )
 		{
-			trigger_error("Delete statements are not allowed designer queries", E_USER_ERROR);
+			handle_error("Delete statements are not allowed designer queries");
 			$sel_type = "DELETE";
             $this->sql_raw = "#". $this->sql_raw;
             $this->whereoffset = 0;
@@ -632,7 +632,7 @@ class reportico_sql_parser
                 }
                 else
                 {
-		            trigger_error("User parameter $param, specified but not provided to reportico", E_USER_ERROR);
+		            handle_error("User parameter $param, specified but not provided to reportico");
                 }
             }
         }

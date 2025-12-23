@@ -210,16 +210,16 @@ class reportico_report extends reportico_object
     // For each line reset styles to default values
     function set_default_styles()
     {
-        $this->query->output_allcell_styles = false;
-        $this->query->output_row_styles = false;
-        $this->query->output_before_form_row_styles = false;
-        $this->query->output_after_form_row_styles = false;
-        $this->query->output_page_styles = false;
-        $this->query->output_header_styles = false;
-        $this->query->output_reportbody_styles = false;
-        $this->query->output_group_header_label_styles = false;
-        $this->query->output_group_header_value_styles = false;
-        $this->query->output_group_trailer_styles = false;
+		$this->query->output_allcell_styles = array();
+		$this->query->output_row_styles = array();
+		$this->query->output_before_form_row_styles = array();
+		$this->query->output_after_form_row_styles = array();
+		$this->query->output_page_styles = array();
+		$this->query->output_header_styles = array();
+		$this->query->output_reportbody_styles = array();
+		$this->query->output_group_header_label_styles = array();
+		$this->query->output_group_header_value_styles = array();
+		$this->query->output_group_trailer_styles = array();
         $this->query->output_hyperlinks = false;
         $this->query->output_images = false;
     }

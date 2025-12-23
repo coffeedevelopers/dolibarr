@@ -20,9 +20,6 @@ INNER JOIN llx_societe s ON f.fk_soc = s.rowid
 LEFT JOIN llx_paiement_facture pf ON pf.fk_facture = f.rowid
 LEFT JOIN llx_paiement p ON p.rowid = pf.fk_paiement
 WHERE 1=1
-  /* --- filtros opcionales --- */
-  AND (f.datef BETWEEN '__START__' AND '__END__' OR '__START__' = '' OR '__END__' = '')
-  AND (f.fk_statut = __STATUT__ OR __STATUT__ = -1)
 GROUP BY 
     f.rowid, f.ref, f.ref_client, f.datef, s.nom, 
     f.total_ht, f.total_tva, f.total_ttc, f.fk_statut

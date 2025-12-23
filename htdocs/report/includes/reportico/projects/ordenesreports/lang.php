@@ -14,4 +14,4 @@ $g_report_desc = array (
         "Translated description"
 			)
 		);
-?>
+

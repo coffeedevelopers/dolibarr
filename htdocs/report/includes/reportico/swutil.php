@@ -628,7 +628,13 @@ function handle_error($errstr, $type = E_USER_ERROR)
 
 	$g_errors = true;
 
-	trigger_error($errstr, $type);
+    // PHP 8.4: trigger_error(..., E_USER_ERROR) está deprecado.
+    if (PHP_VERSION_ID >= 80400 && $type === E_USER_ERROR)
+    {
+        throw new Exception($errstr);
+    }
+
+    trigger_error($errstr, $type);
 }
   
   
