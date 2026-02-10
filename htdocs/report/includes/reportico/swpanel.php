@@ -6297,7 +6297,8 @@ class reportico_xmlval
 
 	function &add_xmlval ( $name, $value = false, $attributes = false )
 	{
-		$element = new reportico_xmlval($name, htmlspecialchars($value), $attributes);
+		$safe_value = ($value === false || $value === null) ? '' : (string)$value;
+		$element = new reportico_xmlval($name, htmlspecialchars($safe_value), $attributes);
 		$this->elements[] =& $element;
 		return $element;
 	}

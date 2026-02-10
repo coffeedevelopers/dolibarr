@@ -69,7 +69,7 @@ if ($action == 'update' && empty($_POST["cancel"]))
         dol_mkdir($dirforxml);
     }
     // CRT
-    $varforcrt='AFIPSERVICE_WSARBA_CRT';
+    $varforcrt='AFIPWS_WSARBA_CRT';
     $dirforcrt=$conf->afipservice->dir_output.'/'.$conf->entity.'/keys/';
     if ($_FILES[$varforcrt]["tmp_name"])
     {
@@ -83,7 +83,7 @@ if ($action == 'update' && empty($_POST["cancel"]))
             }
             $result=dol_move_uploaded_file($_FILES[$varforcrt]["tmp_name"],$dirforcrt.$original_file,1,0,$_FILES[$varforcrt]['error']);
             if ($result > 0) {
-                dolibarr_set_const($db, "AFIPSERVICE_WSARBA_CRT", $original_file, 'chaine', 0, '', $conf->entity);
+                dolibarr_set_const($db, "AFIPWS_WSARBA_CRT", $original_file, 'chaine', 0, '', $conf->entity);
             }
             else
             {
@@ -95,11 +95,11 @@ if ($action == 'update' && empty($_POST["cancel"]))
     }
 //--------
 
-    if (isset($_POST["AFIPSERVICE_WSARBA_SERVER"]))   dolibarr_set_const($db, "AFIPSERVICE_WSARBA_SERVER",   GETPOST("AFIPSERVICE_WSARBA_SERVER"),'chaine',0,'',$conf->entity);
-//    if (isset($_POST["AFIPSERVICE_WSARBA_CRT"])) dolibarr_set_const($db, "AFIPSERVICE_WSARBA_CRT", GETPOST("AFIPSERVICE_WSARBA_CRT"),'chaine',0,'',$conf->entity);
-    if (isset($_POST["AFIPSERVICE_WSARBA_USER"]))    dolibarr_set_const($db, "AFIPSERVICE_WSARBA_USER",    GETPOST("AFIPSERVICE_WSARBA_USER"), 'chaine',0,'',$conf->entity);
-    if (isset($_POST["AFIPSERVICE_WSARBA_PWD"]))    dolibarr_set_const($db, "AFIPSERVICE_WSARBA_PWD",    GETPOST("AFIPSERVICE_WSARBA_PWD"), 'chaine',0,'',$conf->entity);
-    if (isset($_POST["AFIPSERVICE_WSARBA_MODE"]))    dolibarr_set_const($db, "AFIPSERVICE_WSARBA_MODE",    GETPOST("AFIPSERVICE_WSARBA_MODE"), 'yesno',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSARBA_SERVER"]))   dolibarr_set_const($db, "AFIPWS_WSARBA_SERVER",   GETPOST("AFIPWS_WSARBA_SERVER"),'chaine',0,'',$conf->entity);
+//    if (isset($_POST["AFIPWS_WSARBA_CRT"])) dolibarr_set_const($db, "AFIPWS_WSARBA_CRT", GETPOST("AFIPWS_WSARBA_CRT"),'chaine',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSARBA_USER"]))    dolibarr_set_const($db, "AFIPWS_WSARBA_USER",    GETPOST("AFIPWS_WSARBA_USER"), 'chaine',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSARBA_PWD"]))    dolibarr_set_const($db, "AFIPWS_WSARBA_PWD",    GETPOST("AFIPWS_WSARBA_PWD"), 'chaine',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSARBA_MODE"]))    dolibarr_set_const($db, "AFIPWS_WSARBA_MODE",    GETPOST("AFIPWS_WSARBA_MODE"), 'yesno',0,'',$conf->entity);
 
 
 
@@ -112,9 +112,9 @@ if ($action == 'removecrt')
 {
     require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-    $crtfile=$conf->afipservice->dir_output.'/'.$conf->entity.'/keys/'.$conf->global->AFIPSERVICE_WSARBA_CRT;
+    $crtfile=$conf->afipservice->dir_output.'/'.$conf->entity.'/keys/'.$conf->global->AFIPWS_WSARBA_CRT;
     dol_delete_file($crtfile);
-    dolibarr_set_const($db, "AFIPSERVICE_WSARBA_CRT",      '', 'chaine',0,'',$conf->entity);
+    dolibarr_set_const($db, "AFIPWS_WSARBA_CRT",      '', 'chaine',0,'',$conf->entity);
 }
 
 
@@ -159,22 +159,22 @@ if ($action == 'edit') {
     // WSARBA server
 
     print '<tr '.$bc[$var].'><td>';
-    $wsarbaserver = (! empty($conf->global->AFIPSERVICE_WSARBA_SERVER)?$conf->global->AFIPSERVICE_WSARBA_SERVER:'https://dfe.test.arba.gov.ar/DomicilioElectronico/SeguridadCliente/dfeServicioConsulta.do');
-    print $langs->trans("AFIPSERVICE_WSARBA_SERVER");
+    $wsarbaserver = (! empty($conf->global->AFIPWS_WSARBA_SERVER)?$conf->global->AFIPWS_WSARBA_SERVER:'https://dfe.test.arba.gov.ar/DomicilioElectronico/SeguridadCliente/dfeServicioConsulta.do');
+    print $langs->trans("AFIPWS_WSARBA_SERVER");
     print '</td><td>';
-    print '<input class="flat" id="AFIPSERVICE_WSARBA_SERVER" name="AFIPSERVICE_WSARBA_SERVER" size="18" value="' . $wsarbaserver . '">';
+    print '<input class="flat" id="AFIPWS_WSARBA_SERVER" name="AFIPWS_WSARBA_SERVER" size="18" value="' . $wsarbaserver . '">';
     print '</td></tr>';
 
     // WSARBA CRT
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    $wsarbacrt = (! empty($conf->global->AFIPSERVICE_WSARBA_CRT) ? $conf->global->AFIPSERVICE_WSARBA_CRT : 'arba.crt');
-    print $langs->trans("AFIPSERVICE_WSARBA_CRT");
+    $wsarbacrt = (! empty($conf->global->AFIPWS_WSARBA_CRT) ? $conf->global->AFIPWS_WSARBA_CRT : 'arba.crt');
+    print $langs->trans("AFIPWS_WSARBA_CRT");
     print '</td><td>';
-    //print '<input class="flat" id="AFIPSERVICE_WSARBA_CRT" name="AFIPSERVICE_WSARBA_CRT" size="18" value="' . $wsarbacrt . '">';
+    //print '<input class="flat" id="AFIPWS_WSARBA_CRT" name="AFIPWS_WSARBA_CRT" size="18" value="' . $wsarbacrt . '">';
     //print '</td></tr>';
     print '<table width="100%" class="nobordernopadding"><tr class="nocellnopadd"><td valign="middle" class="nocellnopadd">';
-    print '<input type="file" class="flat class=minwidth200" name="AFIPSERVICE_WSARBA_CRT" id="AFIPSERVICE_WSARBA_CRT">';
+    print '<input type="file" class="flat class=minwidth200" name="AFIPWS_WSARBA_CRT" id="AFIPWS_WSARBA_CRT">';
     print '</td><td class="nocellnopadd" valign="middle" align="right">';
 
     if (file_exists($conf->afipservice->dir_output.'/'.$conf->entity.'/keys/'.$wsarbacrt)) {
@@ -188,10 +188,10 @@ if ($action == 'edit') {
     // WSARBA USER
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    $wsarbauser = (! empty($conf->global->AFIPSERVICE_WSARBA_USER) ? $conf->global->AFIPSERVICE_WSARBA_USER : '');
-    print $langs->trans("AFIPSERVICE_WSARBA_USER");
+    $wsarbauser = (! empty($conf->global->AFIPWS_WSARBA_USER) ? $conf->global->AFIPWS_WSARBA_USER : '');
+    print $langs->trans("AFIPWS_WSARBA_USER");
     print '</td><td>';
-    print '<input class="flat" id="AFIPSERVICE_WSARBA_USER" name="AFIPSERVICE_WSARBA_USER" size="18" value="' . $wsarbauser . '">';
+    print '<input class="flat" id="AFIPWS_WSARBA_USER" name="AFIPWS_WSARBA_USER" size="18" value="' . $wsarbauser . '">';
     print '</td></tr>';
 
 
@@ -199,19 +199,19 @@ if ($action == 'edit') {
     // WSARBA PASSWORD
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    $wsarbapwd = (! empty($conf->global->AFIPSERVICE_WSARBA_PWD) ? $conf->global->AFIPSERVICE_WSARBA_PWD : '');
-    print $langs->trans("AFIPSERVICE_WSARBA_PWD");
+    $wsarbapwd = (! empty($conf->global->AFIPWS_WSARBA_PWD) ? $conf->global->AFIPWS_WSARBA_PWD : '');
+    print $langs->trans("AFIPWS_WSARBA_PWD");
     print '</td><td>';
-    print '<input class="flat" id="AFIPSERVICE_WSARBA_PWD" name="AFIPSERVICE_WSARBA_PWD" size="18" value="' . $wsarbapwd . '">';
+    print '<input class="flat" id="AFIPWS_WSARBA_PWD" name="AFIPWS_WSARBA_PWD" size="18" value="' . $wsarbapwd . '">';
     print '</td></tr>';
 
 
     // WSARBA MODE
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    print $langs->trans("AFIPSERVICE_WSARBA_MODE");
+    print $langs->trans("AFIPWS_WSARBA_MODE");
     print '</td><td>';
-    print $form->selectyesno('AFIPSERVICE_WSARBA_MODE',$conf->global->AFIPSERVICE_WSARBA_MODE,1);
+    print $form->selectyesno('AFIPWS_WSARBA_MODE',$conf->global->AFIPWS_WSARBA_MODE,1);
     print '</td></tr>';
 
     print '</table>';
@@ -233,20 +233,20 @@ if ($action == 'edit') {
 
 
     //WSARBA Server
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSARBA_SERVER", ini_get('WSARBASERVER') ? ini_get('WSARBASERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSARBA_SERVER) ? $conf->global->AFIPSERVICE_WSARBA_SERVER : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSARBA_SERVER", ini_get('WSARBASERVER') ? ini_get('WSARBASERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSARBA_SERVER) ? $conf->global->AFIPWS_WSARBA_SERVER : '') . '</td></tr>';
     // WSARBA CRT
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSARBA_CRT", ini_get('WSARBACRT') ? ini_get('WSARBACRT') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSARBA_CRT) ? $conf->global->AFIPSERVICE_WSARBA_CRT : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSARBA_CRT", ini_get('WSARBACRT') ? ini_get('WSARBACRT') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSARBA_CRT) ? $conf->global->AFIPWS_WSARBA_CRT : '') . '</td></tr>';
     // WSARBA USER
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSARBA_USER", ini_get('WSARBAUSER') ? ini_get('WSARBAUSER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSARBA_USER) ? $conf->global->AFIPSERVICE_WSARBA_USER : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSARBA_USER", ini_get('WSARBAUSER') ? ini_get('WSARBAUSER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSARBA_USER) ? $conf->global->AFIPWS_WSARBA_USER : '') . '</td></tr>';
     // WSARBA PWD
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSARBA_PWD", ini_get('WSARBAPWD') ? ini_get('WSARBAPWD') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSARBA_PWD) ? $conf->global->AFIPSERVICE_WSARBA_PWD : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSARBA_PWD", ini_get('WSARBAPWD') ? ini_get('WSARBAPWD') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSARBA_PWD) ? $conf->global->AFIPWS_WSARBA_PWD : '') . '</td></tr>';
 
     // WSARBA MODE
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSARBA_MODE") . '</td><td>' . yn($conf->global->AFIPSERVICE_WSARBA_MODE) . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSARBA_MODE") . '</td><td>' . yn($conf->global->AFIPWS_WSARBA_MODE) . '</td></tr>';
 
     print '</table>';
 

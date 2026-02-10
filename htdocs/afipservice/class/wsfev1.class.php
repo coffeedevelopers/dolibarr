@@ -59,13 +59,27 @@ class wsfev1 {
 	{
 		global $conf;
 
+		$wsaaMode = 0;
+		if (function_exists('getDolGlobalInt')) {
+			$wsaaMode = (int) getDolGlobalInt('AFIPWS_WSAA_MODE');
+		} elseif (isset($conf->global->AFIPWS_WSAA_MODE)) {
+			$wsaaMode = (int) $conf->global->AFIPWS_WSAA_MODE;
+		}
+
+		$wsfeServer = '';
+		if (function_exists('getDolGlobalString')) {
+			$wsfeServer = (string) getDolGlobalString('AFIPWS_WSFE_SERVER');
+		} elseif (!empty($conf->global->AFIPWS_WSFE_SERVER)) {
+			$wsfeServer = (string) $conf->global->AFIPWS_WSFE_SERVER;
+		}
+
 		//$this->path = DOL_DOCUMENT_ROOT.'/afipservice/';
         $this->path = $conf->afipservice->dir_output.'/'.$conf->entity.'/';
-		if ($conf->global->AFIPSERVICE_WSAA_MODE == 0) { //MODE 1=produccion 0=Homologacion
+		if ($wsaaMode == 0) { //MODE 1=produccion 0=Homologacion
             $this->url = 'https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL'; //HOMO
 
         }else{
-            $this->url = $conf->global->AFIPSERVICE_WSFE_SERVER;
+			$this->url = $wsfeServer;
         };
 
 

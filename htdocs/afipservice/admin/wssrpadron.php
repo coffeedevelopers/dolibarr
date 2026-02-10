@@ -64,8 +64,8 @@ if ($action == 'update' && empty($_POST["cancel"]))
 {
     // Send mode parameters
 
-    if (isset($_POST["AFIPSERVICE_WSSRPADRON_SERVER"]))   dolibarr_set_const($db, "AFIPSERVICE_WSSRPADRON_SERVER",   GETPOST("AFIPSERVICE_WSSRPADRON_SERVER"),'chaine',0,'',$conf->entity);
-    if (isset($_POST["AFIPSERVICE_WSSRPADRON_MODE"]))    dolibarr_set_const($db, "AFIPSERVICE_WSSRPADRON_MODE",    GETPOST("AFIPSERVICE_WSSRPADRON_MODE"), 'yesno',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSSRPADRON_SERVER"]))   dolibarr_set_const($db, "AFIPWS_WSSRPADRON_SERVER",   GETPOST("AFIPWS_WSSRPADRON_SERVER"),'chaine',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSSRPADRON_MODE"]))    dolibarr_set_const($db, "AFIPWS_WSSRPADRON_MODE",    GETPOST("AFIPWS_WSSRPADRON_MODE"), 'yesno',0,'',$conf->entity);
 
 
     header("Location: ".$_SERVER["PHP_SELF"]."?mainmenu=home&leftmenu=setup");
@@ -110,23 +110,23 @@ if ($action == 'edit') {
 
     // WSSRPADRON server
     print '<tr '.$bc[$var].'><td>';
-    $wssrpadron = (! empty($conf->global->AFIPSERVICE_WSSRPADRON_SERVER)?$conf->global->AFIPSERVICE_WSSRPADRON_SERVER:'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA4?WSDL');
-    print $langs->trans("AFIPSERVICE_WSSRPADRON_SERVER");
+    $wssrpadron = (! empty($conf->global->AFIPWS_WSSRPADRON_SERVER)?$conf->global->AFIPWS_WSSRPADRON_SERVER:'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA4?WSDL');
+    print $langs->trans("AFIPWS_WSSRPADRON_SERVER");
     print '</td><td>';
-    print '<input class="flat" id="AFIPSERVICE_WSSRPADRON_SERVER" name="AFIPSERVICE_WSSRPADRON_SERVER" size="18" value="' . $wssrpadron . '">';
+    print '<input class="flat" id="AFIPWS_WSSRPADRON_SERVER" name="AFIPWS_WSSRPADRON_SERVER" size="18" value="' . $wssrpadron . '">';
     print '</td></tr>';
 
 
     // WSSRPADRON MODE
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    //print $langs->trans("AFIPSERVICE_WSSRPADRON_MODE");
-    $text = $langs->trans("AFIPSERVICE_WSSRPADRON_MODE");
+    //print $langs->trans("AFIPWS_WSSRPADRON_MODE");
+    $text = $langs->trans("AFIPWS_WSSRPADRON_MODE");
     $htmltext = $langs->trans("WSSRPADRONYesNoModeMessaje");
     print $form->textwithpicto($text,$htmltext,1,'info');
 
     print '</td><td>';
-    print $form->selectyesno('AFIPSERVICE_WSSRPADRON_MODE',$conf->global->AFIPSERVICE_WSSRPADRON_MODE,1);
+    print $form->selectyesno('AFIPWS_WSSRPADRON_MODE',$conf->global->AFIPWS_WSSRPADRON_MODE,1);
     print '</td></tr>';
 
 
@@ -149,10 +149,10 @@ if ($action == 'edit') {
 
 
     //WSSRPADRON Server
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSSRPADRON_SERVER", ini_get('WSSRPADRONSERVER') ? ini_get('WSSRPADRONSERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSSRPADRON_SERVER) ? $conf->global->AFIPSERVICE_WSSRPADRON_SERVER : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSSRPADRON_SERVER", ini_get('WSSRPADRONSERVER') ? ini_get('WSSRPADRONSERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSSRPADRON_SERVER) ? $conf->global->AFIPWS_WSSRPADRON_SERVER : '') . '</td></tr>';
    // WSSRPADRON MODE
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSSRPADRON_MODE") . '</td><td>' . yn($conf->global->AFIPSERVICE_WSSRPADRON_MODE) . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSSRPADRON_MODE") . '</td><td>' . yn($conf->global->AFIPWS_WSSRPADRON_MODE) . '</td></tr>';
     // WSSRPADRON PDF COPIES
 
 

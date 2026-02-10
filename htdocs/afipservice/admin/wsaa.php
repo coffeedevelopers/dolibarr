@@ -79,7 +79,7 @@ if ($action == 'update' && empty($_POST["cancel"]))
 
 
 // KEY
-    $varforkey='AFIPSERVICE_WSAA_KEY';
+    $varforkey='AFIPWS_WSAA_KEY';
     $dirforkey=$conf->afipservice->dir_output.'/'.$conf->entity.'/keys/';
     if ($_FILES[$varforkey]["tmp_name"])
     {
@@ -93,7 +93,7 @@ if ($action == 'update' && empty($_POST["cancel"]))
                 }
                 $result=dol_move_uploaded_file($_FILES[$varforkey]["tmp_name"],$dirforkey.$original_file,1,0,$_FILES[$varforkey]['error']);
                 if ($result > 0) {
-                    dolibarr_set_const($db, "AFIPSERVICE_WSAA_KEY", $original_file, 'chaine', 0, '', $conf->entity);
+                    dolibarr_set_const($db, "AFIPWS_WSAA_KEY", $original_file, 'chaine', 0, '', $conf->entity);
                 }
                 else
                 {
@@ -105,7 +105,7 @@ if ($action == 'update' && empty($_POST["cancel"]))
     }
 //--------
 //CRT
-    $varforcrt='AFIPSERVICE_WSAA_CRT';
+    $varforcrt='AFIPWS_WSAA_CRT';
     $dirforcrt=$conf->afipservice->dir_output.'/'.$conf->entity.'/keys/';
     if ($_FILES[$varforcrt]["tmp_name"])
     {
@@ -119,7 +119,7 @@ if ($action == 'update' && empty($_POST["cancel"]))
             }
             $result=dol_move_uploaded_file($_FILES[$varforcrt]["tmp_name"],$dirforcrt.$original_file,1,0,$_FILES[$varforcrt]['error']);
             if ($result > 0) {
-                dolibarr_set_const($db, "AFIPSERVICE_WSAA_CRT", $original_file, 'chaine', 0, '', $conf->entity);
+                dolibarr_set_const($db, "AFIPWS_WSAA_CRT", $original_file, 'chaine', 0, '', $conf->entity);
             }
             else
             {
@@ -134,10 +134,10 @@ if ($action == 'update' && empty($_POST["cancel"]))
 
 
 
-    if (isset($_POST["AFIPSERVICE_WSAA_SERVER"]))   dolibarr_set_const($db, "AFIPSERVICE_WSAA_SERVER",   GETPOST("AFIPSERVICE_WSAA_SERVER"),'chaine',0,'',$conf->entity);
-//    if (isset($_POST["AFIPSERVICE_WSAA_CRT"]))      dolibarr_set_const($db, "AFIPSERVICE_WSAA_CRT",      GETPOST("AFIPSERVICE_WSAA_CRT"),'chaine',0,'',$conf->entity);
-//    if (isset($_POST["AFIPSERVICE_WSAA_KEY"]))      dolibarr_set_const($db, "AFIPSERVICE_WSAA_KEY",      GETPOST("AFIPSERVICE_WSAA_KEY"), 'chaine',0,'',$conf->entity);
-    if (isset($_POST["AFIPSERVICE_WSAA_MODE"]))     dolibarr_set_const($db, "AFIPSERVICE_WSAA_MODE",     GETPOST("AFIPSERVICE_WSAA_MODE"), 'yesno',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSAA_SERVER"]))   dolibarr_set_const($db, "AFIPWS_WSAA_SERVER",   GETPOST("AFIPWS_WSAA_SERVER"),'chaine',0,'',$conf->entity);
+//    if (isset($_POST["AFIPWS_WSAA_CRT"]))      dolibarr_set_const($db, "AFIPWS_WSAA_CRT",      GETPOST("AFIPWS_WSAA_CRT"),'chaine',0,'',$conf->entity);
+//    if (isset($_POST["AFIPWS_WSAA_KEY"]))      dolibarr_set_const($db, "AFIPWS_WSAA_KEY",      GETPOST("AFIPWS_WSAA_KEY"), 'chaine',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSAA_MODE"]))     dolibarr_set_const($db, "AFIPWS_WSAA_MODE",     GETPOST("AFIPWS_WSAA_MODE"), 'yesno',0,'',$conf->entity);
 
 
     header("Location: ".$_SERVER["PHP_SELF"]."?mainmenu=home&leftmenu=setup");
@@ -149,9 +149,9 @@ if ($action == 'removekey')
 {
     require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-    $keyfile=$conf->afipservice->dir_output.'/'.$conf->entity.'/keys/'.$conf->global->AFIPSERVICE_WSAA_KEY;
+    $keyfile=$conf->afipservice->dir_output.'/'.$conf->entity.'/keys/'.$conf->global->AFIPWS_WSAA_KEY;
     dol_delete_file($keyfile);
-    dolibarr_set_const($db, "AFIPSERVICE_WSAA_KEY",      '', 'chaine',0,'',$conf->entity);
+    dolibarr_set_const($db, "AFIPWS_WSAA_KEY",      '', 'chaine',0,'',$conf->entity);
 
 }
 
@@ -159,9 +159,9 @@ if ($action == 'removecrt')
 {
     require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-    $crtfile=$conf->afipservice->dir_output.'/'.$conf->entity.'/keys/'.$conf->global->AFIPSERVICE_WSAA_CRT;
+    $crtfile=$conf->afipservice->dir_output.'/'.$conf->entity.'/keys/'.$conf->global->AFIPWS_WSAA_CRT;
     dol_delete_file($crtfile);
-    dolibarr_set_const($db, "AFIPSERVICE_WSAA_CRT",      '', 'chaine',0,'',$conf->entity);
+    dolibarr_set_const($db, "AFIPWS_WSAA_CRT",      '', 'chaine',0,'',$conf->entity);
 }
 
 
@@ -208,20 +208,20 @@ if ($action == 'edit') {
     // WSAA server
 
     print '<tr '.$bc[$var].'><td>';
-    $wsaaserver = (! empty($conf->global->AFIPSERVICE_WSAA_SERVER)?$conf->global->AFIPSERVICE_WSAA_SERVER:'');
-    print $langs->trans("AFIPSERVICE_WSAA_SERVER");
+    $wsaaserver = (! empty($conf->global->AFIPWS_WSAA_SERVER)?$conf->global->AFIPWS_WSAA_SERVER:'');
+    print $langs->trans("AFIPWS_WSAA_SERVER");
     print '</td><td>';
-    print '<input class="flat" id="AFIPSERVICE_WSAA_SERVER" name="AFIPSERVICE_WSAA_SERVER" size="18" value="' . $wsaaserver . '">';
+    print '<input class="flat" id="AFIPWS_WSAA_SERVER" name="AFIPWS_WSAA_SERVER" size="18" value="' . $wsaaserver . '">';
     print '</td></tr>';
 
     // WSAA CRT
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    $wsaacrt = (! empty($conf->global->AFIPSERVICE_WSAA_CRT) ? $conf->global->AFIPSERVICE_WSAA_CRT : '');
-    print $langs->trans("AFIPSERVICE_WSAA_CRT");
+    $wsaacrt = (! empty($conf->global->AFIPWS_WSAA_CRT) ? $conf->global->AFIPWS_WSAA_CRT : '');
+    print $langs->trans("AFIPWS_WSAA_CRT");
     print '</td><td>';
     print '<table width="100%" class="nobordernopadding"><tr class="nocellnopadd"><td valign="middle" class="nocellnopadd">';
-    print '<input type="file" class="flat class=minwidth200" name="AFIPSERVICE_WSAA_CRT" id="AFIPSERVICE_WSAA_CRT">';
+    print '<input type="file" class="flat class=minwidth200" name="AFIPWS_WSAA_CRT" id="AFIPWS_WSAA_CRT">';
     print '</td><td class="nocellnopadd" valign="middle" align="right">';
 
     if (file_exists($conf->afipservice->dir_output.'/'.$conf->entity.'/keys/'.$wsaacrt)) {
@@ -235,12 +235,12 @@ if ($action == 'edit') {
     // WSAA KEY
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    $wsaakey = (! empty($conf->global->AFIPSERVICE_WSAA_KEY) ? $conf->global->AFIPSERVICE_WSAA_KEY : '');
-    print $langs->trans("AFIPSERVICE_WSAA_KEY");
+    $wsaakey = (! empty($conf->global->AFIPWS_WSAA_KEY) ? $conf->global->AFIPWS_WSAA_KEY : '');
+    print $langs->trans("AFIPWS_WSAA_KEY");
     print '</td><td>';
 
     print '<table width="100%" class="nobordernopadding"><tr class="nocellnopadd"><td valign="middle" class="nocellnopadd">';
-    print '<input type="file" class="flat class=minwidth200" name="AFIPSERVICE_WSAA_KEY" id="AFIPSERVICE_WSAA_KEY">';
+    print '<input type="file" class="flat class=minwidth200" name="AFIPWS_WSAA_KEY" id="AFIPWS_WSAA_KEY">';
     print '</td><td class="nocellnopadd" valign="middle" align="right">';
 
     if (file_exists($conf->afipservice->dir_output.'/'.$conf->entity.'/keys/'.$wsaakey)) {
@@ -257,12 +257,12 @@ if ($action == 'edit') {
     // WSAA MODE
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    //print $langs->trans("AFIPSERVICE_WSAA_MODE");
-    $text = $langs->trans("AFIPSERVICE_WSAA_MODE");
+    //print $langs->trans("AFIPWS_WSAA_MODE");
+    $text = $langs->trans("AFIPWS_WSAA_MODE");
     $htmltext = $langs->trans("WSAAYesNoModeMessaje");
     print $form->textwithpicto($text,$htmltext,1,'info');
     print '</td><td>';
-    print $form->selectyesno('AFIPSERVICE_WSAA_MODE',$conf->global->AFIPSERVICE_WSAA_MODE,1);
+    print $form->selectyesno('AFIPWS_WSAA_MODE',$conf->global->AFIPWS_WSAA_MODE,1);
     print '</td></tr>';
 
     print '</table>';
@@ -284,17 +284,17 @@ if ($action == 'edit') {
 
 
     //WSAA Server
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSAA_SERVER", ini_get('WSAASERVER') ? ini_get('WSAASERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSAA_SERVER) ? $conf->global->AFIPSERVICE_WSAA_SERVER : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSAA_SERVER", ini_get('WSAASERVER') ? ini_get('WSAASERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSAA_SERVER) ? $conf->global->AFIPWS_WSAA_SERVER : '') . '</td></tr>';
     // WSAA CRT
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSAA_CRT", ini_get('WSAACRT') ? ini_get('WSAACRT') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSAA_CRT) ? $conf->global->AFIPSERVICE_WSAA_CRT : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSAA_CRT", ini_get('WSAACRT') ? ini_get('WSAACRT') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSAA_CRT) ? $conf->global->AFIPWS_WSAA_CRT : '') . '</td></tr>';
 
     // WSAA KEY
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSAA_KEY", ini_get('WSAAKEY') ? ini_get('WSAAKEY') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSAA_KEY) ? $conf->global->AFIPSERVICE_WSAA_KEY : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSAA_KEY", ini_get('WSAAKEY') ? ini_get('WSAAKEY') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSAA_KEY) ? $conf->global->AFIPWS_WSAA_KEY : '') . '</td></tr>';
     // WSAA MODE
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSAA_MODE") . '</td><td>' . yn($conf->global->AFIPSERVICE_WSAA_MODE) . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSAA_MODE") . '</td><td>' . yn($conf->global->AFIPWS_WSAA_MODE) . '</td></tr>';
 
     print '</table>';
 

@@ -15,10 +15,10 @@ class wscdcv1 {
         global $conf;
         $this->path = DOL_DOCUMENT_ROOT . "/afipservice/";
 
-        if ($conf->global->AFIPSERVICE_WSAA_MODE == 0) {
+        if ($conf->global->AFIPWS_WSAA_MODE == 0) {
             $this->url = "https://wswhomo.afip.gov.ar/WSCDC/service.asmx?WSDL";
         } else {
-            $this->url = $conf->global->AFIPSERVICE_WSCDC_SERVER;
+            $this->url = $conf->global->AFIPWS_WSCDC_SERVER;
         }
 
         ini_set("soap.wsdl_cache_enabled", "0");

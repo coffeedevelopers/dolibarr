@@ -9,14 +9,14 @@
     public function __construct() {
         global $conf;
         $this->path = $conf->afipservice->dir_output . "/" . $conf->entity . "/";
-        $this->cert = $this->path . "keys/" . $conf->global->AFIPSERVICE_WSAA_CRT;
-        $this->key = $this->path . "keys/" . $conf->global->AFIPSERVICE_WSAA_KEY;
+        $this->cert = $this->path . "keys/" . $conf->global->AFIPWS_WSAA_CRT;
+        $this->key = $this->path . "keys/" . $conf->global->AFIPWS_WSAA_KEY;
         $this->service = $this->service ? '' : "wsfe";
 
-        if ($conf->global->AFIPSERVICE_WSAA_MODE == 0) {
+        if ($conf->global->AFIPWS_WSAA_MODE == 0) {
             $this->url = "https://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL";
         } else {
-            $this->url = $conf->global->AFIPSERVICE_WSAA_SERVER;
+            $this->url = $conf->global->AFIPWS_WSAA_SERVER;
         }
 
         ini_set("soap.wsdl_cache_enabled", "0");

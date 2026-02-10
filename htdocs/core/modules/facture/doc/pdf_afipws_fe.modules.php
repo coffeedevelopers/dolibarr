@@ -6,7 +6,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/afipservice/class/wsfev1db.class.php';
 
-class pdf_afipservice_fe extends ModelePDFFactures
+class pdf_afipws_fe extends ModelePDFFactures
 {
     var $db;
     var $name;
@@ -114,27 +114,26 @@ class pdf_afipservice_fe extends ModelePDFFactures
 	        91=>'R');
 
 		//$rows = array_map('str_getcsv', file(DOL_DOCUMENT_ROOT.'/afipservice/plantillas/factura.csv'));
-        // Load CSV configuration file - Dynamic path based on DOL_DATA_ROOT
-        $afipws_base_path = DOL_DATA_ROOT . '/afipws/1/wsfev1/';
+        // Load CSV configuration file
+        $afipws_base_path = '/var/www/test.aseoargentina.com.ar/documents/afipws/1/wsfev1/';
 		$csvfile = $afipws_base_path . (isset($conf->global->AFIPWS_WSFE_PDF_CSV) ? $conf->global->AFIPWS_WSFE_PDF_CSV : 'factura.csv');
-		
+
 		if (file_exists($csvfile)) {
-			$rows = array_map('str_getcsv', file($csvfile));
-		} else {
-			$rows = array();
-		}
-		
-		if (!empty($rows)) {
-			$header = array_shift($rows);
-			unset($header[0]);
-			foreach ($rows as $row) {
-				$nom = $row[0];
-				unset($row[0]);
-				$this->posfac[$nom] = array_combine($header, $row);
-			}
-		} else {
-			$this->posfac = array(); // default empty
-		}
+            $rows = array_map('str_getcsv', file($csvfile));
+        } else {
+            $rows = array();
+        }
+        if (!empty($rows)) {
+            $header = array_shift($rows);
+            unset($header[0]);
+            foreach ($rows as $row) {
+                $nom = $row[0];
+                unset($row[0]);
+                $this->posfac[$nom] = array_combine($header, $row);
+            }
+        } else {
+            $this->posfac = array(); // default empty
+        }
 
         //wsfe
 //		if ($object->statut!=0 and  $object->array_options[options_fe] = 1) {
@@ -226,7 +225,7 @@ class pdf_afipservice_fe extends ModelePDFFactures
                 $pdf->SetFont(pdf_getPDFFont($outputlangs));
 
                // Load PDF template
-				$afipws_base_path = DOL_DATA_ROOT . '/afipws/1/wsfev1/';
+				$afipws_base_path = '/var/www/test.aseoargentina.com.ar/documents/afipws/1/wsfev1/';
 				$pdf_template = $afipws_base_path . (!empty($conf->global->AFIPWS_WSFE_PDF_TEMPLATE) ? $conf->global->AFIPWS_WSFE_PDF_TEMPLATE : 'factura.pdf');
 				
 				// Check if template file exists before loading

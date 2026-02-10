@@ -53,12 +53,12 @@ class wssrpadron {
         global $conf;
 
         $this->path = $conf->afipservice->dir_output.'/'.$conf->entity.'/';
-        if ($conf->global->AFIPSERVICE_WSAA_MODE == 0) { //MODE 1=produccion 0=Homologacion
+        if ($conf->global->AFIPWS_WSAA_MODE == 0) { //MODE 1=produccion 0=Homologacion
             $this->url = 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA4?WSDL'; //HOMO
 
 
         }else{
-            $this->url = $conf->global->AFIPSERVICE_WSSRPADRON_SERVER;
+            $this->url = $conf->global->AFIPWS_WSSRPADRON_SERVER;
         };
 
 

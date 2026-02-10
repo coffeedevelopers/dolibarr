@@ -340,10 +340,10 @@ function isCUIT($cuit) {
 function get_ptovta() {
     global $conf;
 
-    if ($conf->global->AFIPSERVICE_WSFE_MODE == "no") {
-        $ptovta = (int) $conf->global->AFIPSERVICE_WSFE_PTOVTA;
+    if ($conf->global->AFIPWS_WSFE_MODE == "no") {
+        $ptovta = (int) $conf->global->AFIPWS_WSFE_PTOVTA;
     } else {
-        $ptovta = (int) $conf->global->AFIPSERVICE_WSFE_PTOVTA;
+        $ptovta = (int) $conf->global->AFIPWS_WSFE_PTOVTA;
     }
 
     return $ptovta;

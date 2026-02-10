@@ -123,8 +123,8 @@ class wsarba {
 
         //-------------
         // data fields for POST request
-        $fields = array("user" => $conf->global->AFIPSERVICE_WSARBA_USER,
-            "password" => $conf->global->AFIPSERVICE_WSARBA_PWD
+        $fields = array("user" => $conf->global->AFIPWS_WSARBA_USER,
+            "password" => $conf->global->AFIPWS_WSARBA_PWD
         );
 
         // files to upload
@@ -136,7 +136,7 @@ class wsarba {
 
 
         // URL to upload to
-        $url =  $conf->global->AFIPSERVICE_WSARBA_SERVER;
+        $url =  $conf->global->AFIPWS_WSARBA_SERVER;
 
 
         $url_data = http_build_query($fields);
