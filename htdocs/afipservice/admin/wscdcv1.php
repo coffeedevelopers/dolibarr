@@ -67,7 +67,7 @@ if ($action == 'update' && empty($_POST["cancel"]))
 {
     // Send mode parameters
 
-    if (isset($_POST["AFIPSERVICE_WSCDC_SERVER"]))   dolibarr_set_const($db, "AFIPSERVICE_WSCDC_SERVER",   GETPOST("AFIPSERVICE_WSCDC_SERVER"),'chaine',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSCDC_SERVER"]))   dolibarr_set_const($db, "AFIPWS_WSCDC_SERVER",   GETPOST("AFIPWS_WSCDC_SERVER"),'chaine',0,'',$conf->entity);
 
 
     header("Location: ".$_SERVER["PHP_SELF"]."?mainmenu=home&leftmenu=setup");
@@ -112,10 +112,10 @@ if ($action == 'edit') {
 
     // WSCDC server
     print '<tr '.$bc[$var].'><td>';
-    $wscdcserver = (! empty($conf->global->AFIPSERVICE_WSCDC_SERVER)?$conf->global->AFIPSERVICE_WSCDC_SERVER:'');
-    print $langs->trans("AFIPSERVICE_WSCDC_SERVER");
+    $wscdcserver = (! empty($conf->global->AFIPWS_WSCDC_SERVER)?$conf->global->AFIPWS_WSCDC_SERVER:'');
+    print $langs->trans("AFIPWS_WSCDC_SERVER");
     print '</td><td>';
-    print '<input class="flat" id="AFIPSERVICE_WSCDC_SERVER" name="AFIPSERVICE_WSCDC_SERVER" size="18" value="' . $wscdcserver . '">';
+    print '<input class="flat" id="AFIPWS_WSCDC_SERVER" name="AFIPWS_WSCDC_SERVER" size="18" value="' . $wscdcserver . '">';
     print '</td></tr>';
 
 
@@ -138,7 +138,7 @@ if ($action == 'edit') {
 
 
     //WSCDC Server
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSCDC_SERVER", ini_get('WSCDCSERVER') ? ini_get('WSCDCSERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSCDC_SERVER) ? $conf->global->AFIPSERVICE_WSCDC_SERVER : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSCDC_SERVER", ini_get('WSCDCSERVER') ? ini_get('WSCDCSERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSCDC_SERVER) ? $conf->global->AFIPWS_WSCDC_SERVER : '') . '</td></tr>';
 
     print '</table>';
 
@@ -151,7 +151,7 @@ if ($action == 'edit') {
 
 dol_fiche_end();
 
-$head=afipservice_wscdcv1_prepare_head($object, $user);
+$head=AFIPWS_Wscdcv1_prepare_head($object, $user);
 $titre=$langs->trans("ConstatacionComprobantes");
 $picto="afipservice@afipservice";
 dol_fiche_head($head, 'comprobantes', $titre, 0, $picto);

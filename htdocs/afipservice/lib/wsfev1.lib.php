@@ -747,11 +747,11 @@ function isCUIT( $cuit ) {
 
 function get_ptovta(){
     global $conf;
-    if ($conf->global->AFIPSERVICE_WSFE_MODE == 0) {    //0=punto de venta global 1=punto de venta por usuario
-        $ptovta = (int)$conf->global->AFIPSERVICE_WSFE_PTOVTA; //Punto de Venta
+    if ($conf->global->AFIPWS_WSFE_MODE == 0) {    //0=punto de venta global 1=punto de venta por usuario
+        $ptovta = (int)$conf->global->AFIPWS_WSFE_PTOVTA; //Punto de Venta
     } else {
     //futuras versiones
-        $ptovta = (int)$conf->global->AFIPSERVICE_WSFE_PTOVTA; //Punto de Venta
+        $ptovta = (int)$conf->global->AFIPWS_WSFE_PTOVTA; //Punto de Venta
     }
 
     return $ptovta;

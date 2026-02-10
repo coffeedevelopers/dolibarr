@@ -27,7 +27,7 @@ function afipserviceAdminPrepareHead() {
     return $head;
 }
 
-function afipservice_wscdcv1_prepare_head($object, $user = 0) {
+function AFIPWS_Wscdcv1_prepare_head($object, $user = 0) {
     global $langs, $conf;
     $langs->load("afipservice@afipservice");
     

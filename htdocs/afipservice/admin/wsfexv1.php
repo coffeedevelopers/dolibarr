@@ -67,9 +67,9 @@ if ($action == 'update' && empty($_POST["cancel"]))
 {
     // Send mode parameters
 
-    if (isset($_POST["AFIPSERVICE_WSFEX_SERVER"]))   dolibarr_set_const($db, "AFIPSERVICE_WSFEX_SERVER",   GETPOST("AFIPSERVICE_WSFEX_SERVER"),'chaine',0,'',$conf->entity);
-    if (isset($_POST["AFIPSERVICE_WSFEX_PTOVTA"])) dolibarr_set_const($db, "AFIPSERVICE_WSFEX_PTOVTA", GETPOST("AFIPSERVICE_WSFEX_PTOVTA"),'chaine',0,'',$conf->entity);
-    if (isset($_POST["AFIPSERVICE_WSFEX_MODE"]))    dolibarr_set_const($db, "AFIPSERVICE_WSFEX_MODE",    GETPOST("AFIPSERVICE_WSFEX_MODE"), 'yesno',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSFEX_SERVER"]))   dolibarr_set_const($db, "AFIPWS_WSFEX_SERVER",   GETPOST("AFIPWS_WSFEX_SERVER"),'chaine',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSFEX_PTOVTA"])) dolibarr_set_const($db, "AFIPWS_WSFEX_PTOVTA", GETPOST("AFIPWS_WSFEX_PTOVTA"),'chaine',0,'',$conf->entity);
+    if (isset($_POST["AFIPWS_WSFEX_MODE"]))    dolibarr_set_const($db, "AFIPWS_WSFEX_MODE",    GETPOST("AFIPWS_WSFEX_MODE"), 'yesno',0,'',$conf->entity);
 
 
     header("Location: ".$_SERVER["PHP_SELF"]."?mainmenu=home&leftmenu=setup");
@@ -115,28 +115,28 @@ if ($action == 'edit') {
     // WSFEX server
 
     print '<tr '.$bc[$var].'><td>';
-    $wsfexserver = (! empty($conf->global->AFIPSERVICE_WSAA_SERVER)?$conf->global->AFIPSERVICE_WSAA_SERVER:'https://wswhomo.afip.gov.ar/wsfexv1/service.asmx?WSDL');
-    print $langs->trans("AFIPSERVICE_WSFEX_SERVER");
+    $wsfexserver = (! empty($conf->global->AFIPWS_WSAA_SERVER)?$conf->global->AFIPWS_WSAA_SERVER:'https://wswhomo.afip.gov.ar/wsfexv1/service.asmx?WSDL');
+    print $langs->trans("AFIPWS_WSFEX_SERVER");
     print '</td><td>';
-    print '<input class="flat" id="AFIPSERVICE_WSFEX_SERVER" name="AFIPSERVICE_WSFEX_SERVER" size="18" value="' . $wsfexserver . '">';
+    print '<input class="flat" id="AFIPWS_WSFEX_SERVER" name="AFIPWS_WSFEX_SERVER" size="18" value="' . $wsfexserver . '">';
     print '</td></tr>';
 
     // WSFEX PTOVTA
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    $wsfexptovta = (! empty($conf->global->AFIPSERVICE_WSFEX_PTOVTA) ? $conf->global->AFIPSERVICE_WSFEX_PTOVTA : '2');
-    print $langs->trans("AFIPSERVICE_WSFEX_PTOVTA");
+    $wsfexptovta = (! empty($conf->global->AFIPWS_WSFEX_PTOVTA) ? $conf->global->AFIPWS_WSFEX_PTOVTA : '2');
+    print $langs->trans("AFIPWS_WSFEX_PTOVTA");
     print '</td><td>';
-    print '<input class="flat" id="AFIPSERVICE_WSFEX_PTOVTA" name="AFIPSERVICE_WSFEX_PTOVTA" size="18" value="' . $wsfexptovta . '">';
+    print '<input class="flat" id="AFIPWS_WSFEX_PTOVTA" name="AFIPWS_WSFEX_PTOVTA" size="18" value="' . $wsfexptovta . '">';
     print '</td></tr>';
 
 
     // WSFEX MODE
     $var=!$var;
     print '<tr '.$bc[$var].'><td>';
-    print $langs->trans("AFIPSERVICE_WSFEX_MODE");
+    print $langs->trans("AFIPWS_WSFEX_MODE");
     print '</td><td>';
-    print $form->selectyesno('AFIPSERVICE_WSFEX_MODE',$conf->global->AFIPSERVICE_WSFEX_MODE,0);
+    print $form->selectyesno('AFIPWS_WSFEX_MODE',$conf->global->AFIPWS_WSFEX_MODE,0);
     print '</td></tr>';
 
     print '</table>';
@@ -158,13 +158,13 @@ if ($action == 'edit') {
 
 
     //WSFEX Server
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSFEX_SERVER", ini_get('WSFESERVER') ? ini_get('WSFESERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSFEX_SERVER) ? $conf->global->AFIPSERVICE_WSFEX_SERVER : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSFEX_SERVER", ini_get('WSFESERVER') ? ini_get('WSFESERVER') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSFEX_SERVER) ? $conf->global->AFIPWS_WSFEX_SERVER : '') . '</td></tr>';
     // WSFEX PTOVTA
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSFEX_PTOVTA", ini_get('WSFEPTOVTA') ? ini_get('WSFEPTOVTA') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPSERVICE_WSFEX_PTOVTA) ? $conf->global->AFIPSERVICE_WSFEX_PTOVTA : '') . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSFEX_PTOVTA", ini_get('WSFEPTOVTA') ? ini_get('WSFEPTOVTA') : $langs->transnoentities("Undefined")) . '</td><td>' . (!empty($conf->global->AFIPWS_WSFEX_PTOVTA) ? $conf->global->AFIPWS_WSFEX_PTOVTA : '') . '</td></tr>';
    // WSFEX MODE
     $var = !$var;
-    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPSERVICE_WSFEX_MODE") . '</td><td>' . yn($conf->global->AFIPSERVICE_WSFEX_MODE) . '</td></tr>';
+    print '<tr ' . $bc[$var] . '><td>' . $langs->trans("AFIPWS_WSFEX_MODE") . '</td><td>' . yn($conf->global->AFIPWS_WSFEX_MODE) . '</td></tr>';
 
     print '</table>';
 

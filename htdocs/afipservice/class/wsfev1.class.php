@@ -61,16 +61,16 @@ class wsfev1 {
 
 		$wsaaMode = 0;
 		if (function_exists('getDolGlobalInt')) {
-			$wsaaMode = (int) getDolGlobalInt('AFIPSERVICE_WSAA_MODE');
-		} elseif (isset($conf->global->AFIPSERVICE_WSAA_MODE)) {
-			$wsaaMode = (int) $conf->global->AFIPSERVICE_WSAA_MODE;
+			$wsaaMode = (int) getDolGlobalInt('AFIPWS_WSAA_MODE');
+		} elseif (isset($conf->global->AFIPWS_WSAA_MODE)) {
+			$wsaaMode = (int) $conf->global->AFIPWS_WSAA_MODE;
 		}
 
 		$wsfeServer = '';
 		if (function_exists('getDolGlobalString')) {
-			$wsfeServer = (string) getDolGlobalString('AFIPSERVICE_WSFE_SERVER');
-		} elseif (!empty($conf->global->AFIPSERVICE_WSFE_SERVER)) {
-			$wsfeServer = (string) $conf->global->AFIPSERVICE_WSFE_SERVER;
+			$wsfeServer = (string) getDolGlobalString('AFIPWS_WSFE_SERVER');
+		} elseif (!empty($conf->global->AFIPWS_WSFE_SERVER)) {
+			$wsfeServer = (string) $conf->global->AFIPWS_WSFE_SERVER;
 		}
 
 		//$this->path = DOL_DOCUMENT_ROOT.'/afipservice/';

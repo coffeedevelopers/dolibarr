@@ -116,7 +116,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 		//$rows = array_map('str_getcsv', file(DOL_DOCUMENT_ROOT.'/afipservice/plantillas/factura.csv'));
         // Load CSV configuration file
         $afipws_base_path = '/var/www/test.aseoargentina.com.ar/documents/afipws/1/wsfev1/';
-		$csvfile = $afipws_base_path . (isset($conf->global->AFIPSERVICE_WSFE_PDF_CSV) ? $conf->global->AFIPSERVICE_WSFE_PDF_CSV : 'factura.csv');
+		$csvfile = $afipws_base_path . (isset($conf->global->AFIPWS_WSFE_PDF_CSV) ? $conf->global->AFIPWS_WSFE_PDF_CSV : 'factura.csv');
 
 		if (file_exists($csvfile)) {
             $rows = array_map('str_getcsv', file($csvfile));
@@ -226,7 +226,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 
                // Load PDF template
 				$afipws_base_path = '/var/www/test.aseoargentina.com.ar/documents/afipws/1/wsfev1/';
-				$pdf_template = $afipws_base_path . (!empty($conf->global->AFIPSERVICE_WSFE_PDF_TEMPLATE) ? $conf->global->AFIPSERVICE_WSFE_PDF_TEMPLATE : 'factura.pdf');
+				$pdf_template = $afipws_base_path . (!empty($conf->global->AFIPWS_WSFE_PDF_TEMPLATE) ? $conf->global->AFIPWS_WSFE_PDF_TEMPLATE : 'factura.pdf');
 				
 				// Check if template file exists before loading
 				if (!file_exists($pdf_template)) {
@@ -258,9 +258,9 @@ class pdf_afipws_fe extends ModelePDFFactures
 				$pdf->SetMargins($this->marge_gauche, $this->marge_haute, $this->marge_droite);   // Left, Top, Right
 
 				$intCopias=1;
-				if ($conf->global->AFIPSERVICE_WSFE_PDF_COPIES >4)  $conf->global->AFIPSERVICE_WSFE_PDF_COPIES = 4;
-				if (empty($conf->global->AFIPSERVICE_WSFE_PDF_COPIES)) $conf->global->AFIPSERVICE_WSFE_PDF_COPIES=1;
-				while ($intCopias <= $conf->global->AFIPSERVICE_WSFE_PDF_COPIES){
+				if ($conf->global->AFIPWS_WSFE_PDF_COPIES >4)  $conf->global->AFIPWS_WSFE_PDF_COPIES = 4;
+				if (empty($conf->global->AFIPWS_WSFE_PDF_COPIES)) $conf->global->AFIPWS_WSFE_PDF_COPIES=1;
+				while ($intCopias <= $conf->global->AFIPWS_WSFE_PDF_COPIES){
                $this->tva=array();
 			    // New page
 				$pdf->AddPage();
@@ -1012,7 +1012,7 @@ class pdf_afipws_fe extends ModelePDFFactures
             $pdf->SetXY($col1x, $tab2_top + $tab2_hl * $index);
             $pdf->SetFillColor(255, 255, 255);
 
-			if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+			if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
 				$pdf->MultiCell($this->posfac['tot_col1']['w'], $this->posfac['tot_col1']['h'], $outputlangs->transnoentities("TotalHT") . $currency_label, 0, $this->posfac['tot_col1']['alig'], 1);//?CAMBIO TOMAS -> Muestro USD en caso necesario
 			}
 
@@ -1059,7 +1059,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 									$tvacompl = " (".$outputlangs->transnoentities("NonPercuRecuperable").")";
 								}
 
-                                if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+                                if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
                                     $totalvat = $outputlangs->transcountrynoentities("TotalLT1", $mysoc->country_code) . ' ';
                                 }
 								$totalvat.=vatrate(abs($tvakey),1).$tvacompl;
@@ -1095,7 +1095,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 									$tvakey=str_replace('*','',$tvakey);
 									$tvacompl = " (".$outputlangs->transnoentities("NonPercuRecuperable").")";
 								}
-                                if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+                                if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
                                     $totalvat = $outputlangs->transcountrynoentities("TotalLT2", $mysoc->country_code) . ' ';
                                 }
 								$totalvat.=vatrate(abs($tvakey),1).$tvacompl;
@@ -1124,7 +1124,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 							$tvakey = str_replace('*', '', $tvakey);
 							$tvacompl = " (" . $outputlangs->transnoentities("NonPercuRecuperable") . ")";
 						}
-                        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+                        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
                             $totalvat = $outputlangs->transnoentities("TotalVAT") . ' ' . vatrate($tvakey, 1) . $tvacompl . $currency_label;//?CAMBIO TOMAS -> Muestro USD en caso necesario
                             //	$totalvat .= vatrate($tvakey, 1) . $tvacompl;
                             //	$pdf->MultiCell($col2x - $col1x, $tab2_hl, $totalvat, 0, 'L', 1);
@@ -1159,7 +1159,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 									$tvacompl = " (".$outputlangs->transnoentities("NonPercuRecuperable").")";
 								}
 
-                                if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+                                if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
                                     $totalvat = $outputlangs->transcountrynoentities("TotalLT1", $mysoc->country_code) . ' ';
                                 }
 								$totalvat.=vatrate(abs($tvakey),1).$tvacompl;
@@ -1194,7 +1194,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 									$tvakey=str_replace('*','',$tvakey);
 									$tvacompl = " (".$outputlangs->transnoentities("NonPercuRecuperable").")";
 								}
-                                if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+                                if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
                                     $totalvat = $outputlangs->transcountrynoentities("TotalLT2", $mysoc->country_code) . ' ';
                                 }
 								$totalvat.=vatrate(abs($tvakey),1).$tvacompl;
@@ -1222,7 +1222,7 @@ class pdf_afipws_fe extends ModelePDFFactures
                                      $index++;
                                      $pdf->SetXY($col1x, $tab2_top + $tab2_hl * $index);
 
-                                     if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+                                     if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
                                          $totalvat = $value->label." ";
                                      }
                                      $totalvat .= $value->type !="fixed" ? vatrate(abs($value->rate), 1):abs($value->rate);
@@ -1242,7 +1242,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 				{
 					$index++;
 					$pdf->SetXY($col1x, $tab2_top + $tab2_hl * $index);
-                    if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+                    if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
                         $pdf->MultiCell($col2x - $col1x, $tab2_hl, $outputlangs->transnoentities("RevenueStamp"), $useborder, 'L', 1);
                     }
 					$pdf->SetXY($col2x, $tab2_top + $tab2_hl * $index);
@@ -1255,7 +1255,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 				$pdf->SetTextColor(0,0,60);
 				$pdf->SetFillColor(224,224,224);
 				//$pdf->MultiCell($col2x-$col1x, $tab2_hl, $outputlangs->transnoentities("TotalTTC"), $useborder, 'L', 1);
-				if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+				if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
 					$pdf->MultiCell($this->posfac['tot_col1']['w'], $tab2_hl, $outputlangs->transnoentities("TotalTTC") . $currency_label, $useborder, 'L', 1); //?CAMBIO TOMAS -> Muestro USD en caso necesario
 				}
                 $pdf->SetXY($col2x, $tab2_top + $tab2_hl * $index);
@@ -1559,7 +1559,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 			$pdf->MultiCell(30,2, $outputlangs->transnoentities("TotalHT"),'','C');
 		}
 
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
 
             $labelsizeplus=0;
             $labelposplus=-6;
@@ -1637,7 +1637,7 @@ class pdf_afipws_fe extends ModelePDFFactures
         $outputlangs->load("companies");
 
         $default_font_size = pdf_getPDFFontSize($outputlangs);
-        $label=''; //Print label check AFIPSERVICE_WSFE_PDF_LABELS
+        $label=''; //Print label check AFIPWS_WSFE_PDF_LABELS
         pdf_pagehead($pdf, $outputlangs, $this->page_hauteur);
 
         // Show Draft Watermark
@@ -1660,7 +1660,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 
         // Logo
 
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) {
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) {
         $logo=$conf->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
         if ($this->emetteur->logo)
         {
@@ -1746,7 +1746,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 
 
        //Numero de Factura
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label='Nro: ';
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label='Nro: ';
        // $titre = str_pad($this->wsfe->puntodeventa, 4,"0",STR_PAD_LEFT) ."-".str_pad($this->wsfe->cbtnro, 8,"0",STR_PAD_LEFT);
         $titre=$object->ref;
         $pdf->SetFont($this->posfac['factu_nro']['font'],$this->posfac['factu_nro']['style'],$this->posfac['factu_nro']['size']);
@@ -1766,7 +1766,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 
             $pdf->SetFont($this->posfac['factu_refcli']['font'],$this->posfac['factu_refcli']['style'],$this->posfac['factu_refcli']['size']);
             $pdf->SetXY($this->posfac['factu_refcli']['x'],$this->posfac['factu_refcli']['y']);
-            if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label=  $outputlangs->transnoentities("RefCustomer")." : " ;
+            if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label=  $outputlangs->transnoentities("RefCustomer")." : " ;
             $pdf->MultiCell($this->posfac['factu_refcli']['w'],$this->posfac['factu_refcli']['h'],$label. $outputlangs->convToOutputCharset($object->ref_client),0,$this->posfac['factu_refcli']['alig']);
         }
 
@@ -1804,7 +1804,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 
         $pdf->SetFont($this->posfac['factu_fec']['font'],$this->posfac['factu_fec']['style'],$this->posfac['factu_fec']['size']);
         $pdf->SetXY($this->posfac['factu_fec']['x'],$this->posfac['factu_fec']['y']);
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label= $outputlangs->transnoentities("DateInvoice")." : ";
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label= $outputlangs->transnoentities("DateInvoice")." : ";
         $pdf->MultiCell($this->posfac['factu_fec']['w'],$this->posfac['factu_fec']['h'], $label . dol_print_date($object->date,"day",false,$outputlangs),0,$this->posfac['factu_fec']['alig']);
 
 
@@ -1812,14 +1812,14 @@ class pdf_afipws_fe extends ModelePDFFactures
         {
             $pdf->SetFont($this->posfac['factu_vto']['font'],$this->posfac['factu_vto']['style'],$this->posfac['factu_vto']['size']);
             $pdf->SetXY($this->posfac['factu_vto']['x'],$this->posfac['factu_vto']['y']);
-            if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label= $outputlangs->transnoentities("DateDue")." : ";
+            if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label= $outputlangs->transnoentities("DateDue")." : ";
             $pdf->MultiCell($this->posfac['factu_vto']['w'],$this->posfac['factu_vto']['h'], $label. dol_print_date($object->date_lim_reglement,"day",false,$outputlangs,true),0,$this->posfac['factu_fec']['alig']);
 
         }
 
 
         //CUIT Empresa
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label='CUIT: ';
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label='CUIT: ';
         $titre = $this->wsfe->cuitemisor;
         $pdf->SetFont($this->posfac['empresa_cuit']['font'],$this->posfac['empresa_cuit']['style'],$this->posfac['empresa_cuit']['size']);
         $pdf->SetXY($this->posfac['empresa_cuit']['x'],$this->posfac['empresa_cuit']['y']);
@@ -1828,15 +1828,15 @@ class pdf_afipws_fe extends ModelePDFFactures
 
 
         //Numero IIBB
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label='IIBB: ';
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label='IIBB: ';
         $titre = $conf->global->MAIN_INFO_SIRET;
         $pdf->SetFont($this->posfac['empresa_iibb']['font'],$this->posfac['empresa_iibb']['style'],$this->posfac['empresa_iibb']['size']);
         $pdf->SetXY($this->posfac['empresa_iibb']['x'],$this->posfac['empresa_iibb']['y']);
         $pdf->MultiCell($this->posfac['empresa_iibb']['w'],$this->posfac['empresa_iibb']['h'],$label.$titre,0,$this->posfac['empresa_iibb']['alig']);
 
         //Fecha Incripcion
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label='Inicio Actividades: ';
-        $titre = $conf->global->AFIPSERVICE_WSFE_PDF_INICIOACT;
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label='Inicio Actividades: ';
+        $titre = $conf->global->AFIPWS_WSFE_PDF_INICIOACT;
         $pdf->SetFont($this->posfac['empresa_inicio']['font'],$this->posfac['empresa_inicio']['style'],$this->posfac['empresa_inicio']['size']);
         $pdf->SetXY($this->posfac['empresa_inicio']['x'],$this->posfac['empresa_inicio']['y']);
         $pdf->MultiCell($this->posfac['empresa_inicio']['w'],$this->posfac['empresa_inicio']['h'],$label.$titre,0,$this->posfac['empresa_inicio']['alig']);
@@ -1851,7 +1851,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 
             $pdf->SetFont($this->posfac['factu_debit']['font'],$this->posfac['factu_debit']['style'],$this->posfac['factu_debit']['size']);
             $pdf->SetXY($this->posfac['factu_debit']['x'],$this->posfac['factu_debit']['y']);
-            if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label= $outputlangs->transnoentities("CorrectionInvoice")." : ";
+            if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label= $outputlangs->transnoentities("CorrectionInvoice")." : ";
 
             $pdf->MultiCell($this->posfac['factu_debit']['w'],$this->posfac['factu_debit']['h'], $label.$outputlangs->convToOutputCharset($objectreplaced->ref),0,$this->posfac['factu_debit']['alig']);
         }
@@ -1875,21 +1875,21 @@ class pdf_afipws_fe extends ModelePDFFactures
             $thirdparty = $object->thirdparty;
         }
 
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $carac_client_name=$outputlangs->transnoentities("Customer").": ";
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $carac_client_name=$outputlangs->transnoentities("Customer").": ";
         $carac_client_name .= pdfBuildThirdpartyName($thirdparty, $outputlangs);
         $pdf->SetFont($this->posfac['cliente_nom']['font'],$this->posfac['cliente_nom']['style'],$this->posfac['cliente_nom']['size']);
         $pdf->SetXY($this->posfac['cliente_nom']['x'],$this->posfac['cliente_nom']['y']);
         $pdf->MultiCell($this->posfac['cliente_nom']['w'],$this->posfac['cliente_nom']['h'],$carac_client_name,0,$this->posfac['cliente_nom']['alig']);
 
         //Direccion Cliente
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $carac_client=$outputlangs->transnoentities("Address").": ";
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $carac_client=$outputlangs->transnoentities("Address").": ";
         $carac_client.=pdf_build_address_afip($outputlangs,$this->emetteur,$object->thirdparty,($usecontact?$object->contact:''),$usecontact,'target');
         $pdf->SetFont($this->posfac['cliente_dom']['font'],$this->posfac['cliente_dom']['style'],$this->posfac['cliente_dom']['size']);
         $pdf->SetXY($this->posfac['cliente_dom']['x'],$this->posfac['cliente_dom']['y']);
         $pdf->MultiCell($this->posfac['cliente_dom']['w'],$this->posfac['cliente_dom']['h'],$carac_client,0,$this->posfac['cliente_dom']['alig']);
 
         //Cliente Provincia
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $carac_client_state=$outputlangs->transnoentities("State").": ";
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $carac_client_state=$outputlangs->transnoentities("State").": ";
         $carac_client_state.=$object->thirdparty->state;
         $pdf->SetFont($this->posfac['cliente_prov']['font'],$this->posfac['cliente_prov']['style'],$this->posfac['cliente_prov']['size']);
         $pdf->SetXY($this->posfac['cliente_prov']['x'],$this->posfac['cliente_prov']['y']);
@@ -1900,7 +1900,7 @@ class pdf_afipws_fe extends ModelePDFFactures
         // Show payments conditions
         if ($object->type != 2 && ($object->cond_reglement_code || $object->cond_reglement))
         {
-            if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label = $outputlangs->transnoentities("PaymentConditions") . ': ';
+            if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label = $outputlangs->transnoentities("PaymentConditions") . ': ';
             $lib_condition_paiement = $outputlangs->transnoentities("PaymentCondition" . $object->cond_reglement_code) != ('PaymentCondition' . $object->cond_reglement_code) ? $outputlangs->transnoentities("PaymentCondition" . $object->cond_reglement_code) : $outputlangs->convToOutputCharset($object->cond_reglement_doc);
             $lib_condition_paiement = str_replace('\n', "\n", $lib_condition_paiement);
 
@@ -1914,7 +1914,7 @@ class pdf_afipws_fe extends ModelePDFFactures
             // Show payment mode
             if ($object->mode_reglement_code){
 
-                if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label = $outputlangs->transnoentities("PaymentMode").': ';
+                if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label = $outputlangs->transnoentities("PaymentMode").': ';
                 $lib_mode_reg=$outputlangs->transnoentities("PaymentType".$object->mode_reglement_code)!=('PaymentType'.$object->mode_reglement_code)?$outputlangs->transnoentities("PaymentType".$object->mode_reglement_code):$outputlangs->convToOutputCharset($object->mode_reglement);
 
                 $pdf->SetFont($this->posfac['factu_mpago']['font'], $this->posfac['factu_mpago']['style'], $this->posfac['factu_mpago']['size']);
@@ -1937,7 +1937,7 @@ class pdf_afipws_fe extends ModelePDFFactures
         $pdf->SetFont($this->posfac['cliente_iva']['font'],$this->posfac['cliente_iva']['style'],$this->posfac['cliente_iva']['size']);
         $pdf->SetXY($this->posfac['cliente_iva']['x'],$this->posfac['cliente_iva']['y']);
 
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label= 'Condicion frente al IVA: ';
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label= 'Condicion frente al IVA: ';
 
         $pdf->MultiCell($this->posfac['cliente_iva']['w'],$this->posfac['cliente_iva']['h'],$label.$id_impositivo,0,$this->posfac['cliente_iva']['alig']);
 
@@ -1945,7 +1945,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 
         // TODO:
               //IVA Empresa
-//        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label='IVA: ';
+//        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label='IVA: ';
 //        $titre = $this->wsfe->cuitemisor;
 //        $pdf->SetFont($this->posfac['empresa_cuit']['font'],$this->posfac['empresa_cuit']['style'],$this->posfac['empresa_cuit']['size']);
 //        $pdf->SetXY($this->posfac['empresa_cuit']['x'],$this->posfac['empresa_cuit']['y']);
@@ -1954,7 +1954,7 @@ class pdf_afipws_fe extends ModelePDFFactures
 
         //CUIT Cliente
 
-        if ($conf->global->AFIPSERVICE_WSFE_PDF_LABELS) $label = $outputlangs->transnoentities("ProfId1AR").': ';
+        if ($conf->global->AFIPWS_WSFE_PDF_LABELS) $label = $outputlangs->transnoentities("ProfId1AR").': ';
         $pdf->SetFont($this->posfac['cliente_cuit']['font'],$this->posfac['cliente_cuit']['style'],$this->posfac['cliente_cuit']['size']);
         $pdf->SetXY($this->posfac['cliente_cuit']['x'],$this->posfac['cliente_cuit']['y']);
         $pdf->MultiCell($this->posfac['cliente_cuit']['w'],$this->posfac['cliente_cuit']['h'],$label.$object->thirdparty->idprof1,0,$this->posfac['cliente_cuit']['alig']);
