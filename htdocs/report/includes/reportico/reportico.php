@@ -6683,7 +6683,13 @@ class reportico_criteria_column extends reportico_query_column
         }
 
         $txt = "";
-		$res =& $this->lookup_query->targets[0]->results;
+		// Verificar que lookup_query, targets y targets[0] existan antes de acceder a results
+		if ( isset($this->lookup_query) && isset($this->lookup_query->targets) && isset($this->lookup_query->targets[0]) ) {
+			$res =& $this->lookup_query->targets[0]->results;
+		} else {
+			$res = null;
+		}
+		
 		if ( !$res )
 		{
 			$res = array();

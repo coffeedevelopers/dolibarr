@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2018-10-20 20:57:49
+<?php /* Smarty version 2.6.26, created on 2025-12-31 09:20:58
          compiled from mini_maintain.tpl */ ?>
 <FORM class="swMiniMntForm" name="topmenu" method="POST" action="<?php echo $this->_tpl_vars['SCRIPT_SELF']; ?>
 ">
@@ -32,4 +32,4 @@
 			</TD>
 		</TR>
 	</TABLE>
-</FORM>
+</FORM>
