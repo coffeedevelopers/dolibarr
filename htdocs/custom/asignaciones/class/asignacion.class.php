@@ -99,7 +99,7 @@ class Asignacion extends CommonObject
 		'timeend' => array('type'=>'datetime', 'label'=>'Hora de Finalización', 'enabled'=>1, 'visible'=>1, 'position'=>54, 'notnull'=>1,),
 		'note_private' => array('type'=>'html', 'label'=>'NotePrivate', 'enabled'=>1, 'visible'=>-1, 'position'=>62, 'notnull'=>-1,),
 		'date_creation' => array('type'=>'datetime', 'label'=>'DateCreation', 'enabled'=>1, 'visible'=>-2, 'position'=>500, 'notnull'=>1,),
-	    'tms' => array('type'=>'timestamp', 'label'=>'DateModification', 'enabled'=>1, 'visible'=>-2, 'position'=>501, 'notnull'=>-1,),
+	    'tms' => array('type'=>'timestamp', 'label'=>'DateModification', 'enabled'=>1, 'visible'=>-2, 'position'=>501, 'notnull'=>0,),
 	    'fk_user_creat' => array('type'=>'integer', 'label'=>'UserAuthor', 'enabled'=>1, 'visible'=>-2, 'position'=>510, 'notnull'=>1, 'foreignkey'=>'user.rowid',),
 		'fk_user_modif' => array('type'=>'integer', 'label'=>'UserModif', 'enabled'=>1, 'visible'=>-2, 'position'=>511, 'notnull'=>-1,),
 	    'fk_region' => array('type'=>'integer:Region:custom/asignaciones/class/region.class.php', 'label'=>'Región', 'enabled'=>1, 'visible'=>1, 'position'=>40, 'notnull'=>1, 'index'=>1,),
@@ -184,7 +184,7 @@ class Asignacion extends CommonObject
 		// Translate some data of arrayofkeyval
 		foreach($this->fields as $key => $val)
 		{
-			if (is_array($val['arrayofkeyval']))
+			if (isset($val['arrayofkeyval']) && is_array($val['arrayofkeyval']))
 			{
 				foreach($val['arrayofkeyval'] as $key2 => $val2)
 				{
