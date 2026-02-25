@@ -188,7 +188,7 @@ class Control extends CommonObject
 		// Translate some data of arrayofkeyval
 		foreach($this->fields as $key => $val)
 		{
-			if (is_array($val['arrayofkeyval']))
+			if (!empty($val['arrayofkeyval']) && is_array($val['arrayofkeyval']))
 			{
 				foreach($val['arrayofkeyval'] as $key2 => $val2)
 				{
@@ -570,34 +570,37 @@ class Control extends CommonObject
 			$this->labelstatus[self::STATUS_TOREFUSE] = 'A Reemplazar';
 		}
 
+		$label = (is_array($this->labelstatus) && isset($this->labelstatus[$status])) ? $this->labelstatus[$status] : '';
+
 		if ($mode == 0)
 		{
-			return $this->labelstatus[$status];
+			return $label;
 		}
 		elseif ($mode == 1)
 		{
-			return $this->labelstatus[$status];
+			return $label;
 		}
 		elseif ($mode == 2)
 		{
-			return img_picto($this->labelstatus[$status], 'statut'.$status, '', false, 0, 0, '', 'valignmiddle').' '.$this->labelstatus[$status];
+			return img_picto($label, 'statut'.$status, '', false, 0, 0, '', 'valignmiddle').' '.$label;
 		}
 		elseif ($mode == 3)
 		{
-			return img_picto($this->labelstatus[$status], 'statut'.$status, '', false, 0, 0, '', 'valignmiddle');
+			return img_picto($label, 'statut'.$status, '', false, 0, 0, '', 'valignmiddle');
 		}
 		elseif ($mode == 4)
 		{
-			return img_picto($this->labelstatus[$status], 'statut'.$status, '', false, 0, 0, '', 'valignmiddle').' '.$this->labelstatus[$status];
+			return img_picto($label, 'statut'.$status, '', false, 0, 0, '', 'valignmiddle').' '.$label;
 		}
 		elseif ($mode == 5)
 		{
-			return $this->labelstatus[$status].' '.img_picto($this->labelstatus[$status], 'statut'.$status, '', false, 0, 0, '', 'valignmiddle');
+			return $label.' '.img_picto($label, 'statut'.$status, '', false, 0, 0, '', 'valignmiddle');
 		}
 		elseif ($mode == 6)
 		{
-			return $this->labelstatus[$status].' '.img_picto($this->labelstatus[$status], 'statut'.$status, '', false, 0, 0, '', 'valignmiddle');
+			return $label.' '.img_picto($label, 'statut'.$status, '', false, 0, 0, '', 'valignmiddle');
 		}
+		return $label;
 	}
 
 	/**

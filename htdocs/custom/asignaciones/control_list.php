@@ -480,14 +480,14 @@ foreach($object->fields as $key => $val)
 	    
 	    if ($key=='timestart' || $key=='timestartreal' ||$key=='timeend' || $key=='timeendreal'){
 	        print '<td class="liste_titre nowraponall" align="center">';
-	        print $form->selectDate($search[$key], 'search_'.$key, 0, 0, 1, '', 1, 0, 0, '', '', '', '', 1, '', '','UTC');
+	        print $form->selectDate($search[$key] ?? '', 'search_'.$key, 0, 0, 1, '', 1, 0, 0, '', '', '', '', 1, '', '','UTC');
 	        print '</td>';
 	    }
 	    else{
 	        
 	        print '<td class="liste_titre'.($cssforfield?' '.$cssforfield:'').'">';
-	        if (is_array($val['arrayofkeyval'])) print $form->selectarray('search_'.$key, $val['arrayofkeyval'], $search[$key], $val['notnull'], 0, 0, '', 0, 0, 0, '', 'maxwidth75');
-	        else print '<input type="text" class="flat maxwidth75" name="search_'.$key.'" value="'.dol_escape_htmltag($search[$key]).'">';
+	        if (!empty($val['arrayofkeyval']) && is_array($val['arrayofkeyval'])) print $form->selectarray('search_'.$key, $val['arrayofkeyval'], $search[$key] ?? '', $val['notnull'] ?? 0, 0, 0, '', 0, 0, 0, '', 'maxwidth75');
+	        else print '<input type="text" class="flat maxwidth75" name="search_'.$key.'" value="'.dol_escape_htmltag($search[$key] ?? '').'">';
 	        print '</td>';
 	    }
 	}
@@ -535,7 +535,7 @@ print '</tr>'."\n";
 
 // Detect if we need a fetch on each output line
 $needToFetchEachLine=0;
-if (is_array($extrafields->attributes[$object->table_element]['computed']) && count($extrafields->attributes[$object->table_element]['computed']) > 0)
+if (!empty($extrafields->attributes[$object->table_element]['computed']) && is_array($extrafields->attributes[$object->table_element]['computed']) && count($extrafields->attributes[$object->table_element]['computed']) > 0)
 {
 	foreach ($extrafields->attributes[$object->table_element]['computed'] as $key => $val)
 	{
@@ -547,7 +547,7 @@ if (is_array($extrafields->attributes[$object->table_element]['computed']) && co
 // Loop on record
 // --------------------------------------------------------------------
 $i=0;
-$totalarray=array();
+$totalarray = array('nbfield' => 0, 'val' => array(), 'pos' => array());
 while ($i < min($num, $limit))
 {
 	$obj = $db->fetch_object($resql);
