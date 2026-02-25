@@ -23,7 +23,14 @@ class wscdcv1 {
 
         ini_set("soap.wsdl_cache_enabled", "0");
 
-        if (!file_get_contents($this->url)) {
+        // SSL stream context to allow AFIP's smaller DH keys (OpenSSL 3.x compatibility)
+        $sslContext = stream_context_create(array(
+            'ssl' => array(
+                'ciphers' => 'DEFAULT:@SECLEVEL=1',
+            ),
+        ));
+
+        if (!file_get_contents($this->url, false, $sslContext)) {
             $this->error .= " Failed to open " . $this->url;
         }
 
@@ -35,7 +42,8 @@ class wscdcv1 {
             "soap_version" => SOAP_1_2,
             "location" => $this->url,
             "exceptions" => 0,
-            "trace" => 1
+            "trace" => 1,
+            "stream_context" => $sslContext
         ));
     }
 

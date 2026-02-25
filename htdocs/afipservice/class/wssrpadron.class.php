@@ -66,8 +66,15 @@ class wssrpadron {
         // seteos en php
         ini_set("soap.wsdl_cache_enabled", "0");
 
+        // SSL stream context to allow AFIP's smaller DH keys (OpenSSL 3.x compatibility)
+        $sslContext = stream_context_create(array(
+            'ssl' => array(
+                'ciphers' => 'DEFAULT:@SECLEVEL=1',
+            ),
+        ));
+
         // validar archivos necesarios
-//        if (!file_get_contents($this->url)) $this->error .= " Failed to open WSDL: ".$this->url; //chequea la url
+//        if (!file_get_contents($this->url, false, $sslContext)) $this->error .= " Failed to open WSDL: ".$this->url; //chequea la url
 
 //		if(!empty($this->error)) {
 //			return ($this->error);
@@ -79,7 +86,8 @@ class wssrpadron {
                 'soap_version' => SOAP_1_1,     //Este WS solo soporta 1.1 //catriel
                 'location'     => $this->url,
                 'exceptions'   => 1,
-                'trace'        => 1)
+                'trace'        => 1,
+                'stream_context' => $sslContext)
         );
 
     }
