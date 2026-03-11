@@ -359,7 +359,7 @@ function get_typecomprobante($object) {
     global $conf;
 
     if ($conf->global->MAIN_INFO_SOCIETE_FORME_JURIDIQUE != 2301) {
-        if ($object->thirdparty->typent_code == "A" || $object->thirdparty->typent_code == "TE_A_RI") {
+        if ($object->thirdparty->typent_code == "A" || $object->thirdparty->typent_code == "TE_A_RI" || $object->thirdparty->typent_code == "TA_A_RI") {
             if ($object->type == 0) {
                 $typeent = "FA-";
                 $tipo_cbte = 1;

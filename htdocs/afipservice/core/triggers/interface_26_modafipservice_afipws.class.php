@@ -67,18 +67,20 @@ class InterfaceAfipws extends DolibarrTriggers
         switch ($action) {
             case "BILL_VALIDATE":
                 if ($object->thirdparty->country_code == "AR" || $object->thirdparty->country_code == '') {
-                    if ($object->modelpdf == "afipservice_fe" && $object->mode_reglement_code != "ECO") {
-                        include_once "../../../../afipservice/lib/wsfev1.lib.php";
+                    if (in_array($object->model_pdf, ['afipservice_fe', 'afipws_fe', 'fe']) && $object->mode_reglement_code != "ECO") {
+                        dol_syslog("Trigger '" . $this->name . "' for action '{$action}' launched by " . __FILE__ . ". id=" . $object->id . " model_pdf=" . $object->model_pdf);
+                        include_once DOL_DOCUMENT_ROOT . '/afipservice/lib/wsfev1.lib.php';
                         return wsfev1($object);
                     }
                 } else {
-                    include_once "../../../../afipservice/lib/wsfexv1.lib.php";
+                    dol_syslog("Trigger '" . $this->name . "' for action '{$action}' launched by " . __FILE__ . ". id=" . $object->id . " (export)");
+                    include_once DOL_DOCUMENT_ROOT . '/afipservice/lib/wsfexv1.lib.php';
                     return wsfexv1($object);
                 }
-                
-                dol_syslog("Trigger '" . $this->name . "' for action '{$action}' launched by " . __FILE__ . ". id=" . $object->id);
+
+                dol_syslog("Trigger '" . $this->name . "' for action '{$action}' launched by " . __FILE__ . ". id=" . $object->id . " (skipped - model_pdf=" . $object->model_pdf . ")");
                 break;
-                
+
             default:
                 dol_syslog("Trigger '" . $this->name . "' for action '{$action}' launched by " . __FILE__ . ". id=" . $object->id);
                 break;

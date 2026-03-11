@@ -1,5 +1,5 @@
 <?php
- *
+/*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
@@ -426,15 +426,19 @@ if (!$conf->global->AFIP_NOT_SEND_COND_IVA_RECEPTOR) {//?CAMBIO TOMAS (Cambio te
     $condicionIva = null;
     switch ($object->thirdparty->typent_code) {
         case 'TE_A_RI':
+        case 'TA_A_RI':
             $condicionIva = 1;
             break;
         case 'TE_B_RNI':
+        case 'TA_B_RNI':
             $condicionIva = 4;
             break;
         case 'TE_C_FE':
+        case 'TA_C_FE':
             $condicionIva = 4;
             break;
         case 'TE_C_MO':
+        case 'TA_C_MO':
             $condicionIva = 4;
             break;
     }
@@ -551,6 +555,14 @@ $wsfev1->openTA();
             $cuitemisor,
             $rechazada
         );
+
+        // Log respuesta AFIP
+        dol_syslog("AFIP wsfev1 id=" . $object->id . " nro1=$nro1 ptovta=$ptovta cbt=" . $regfe['CbteTipo'] .
+            " cae_obj=" . (is_object($cae) ? 'OBJECT' : ($cae === false ? 'FALSE' : 'NULL')) .
+            " Resultado=" . (is_object($cae) ? (isset($cae->FeDetResp->FECAEDetResponse->Resultado) ? $cae->FeDetResp->FECAEDetResponse->Resultado : 'UNDEF') : 'N/A') .
+            " CAE=" . (is_object($cae) ? (isset($cae->FeDetResp->FECAEDetResponse->CAE) ? $cae->FeDetResp->FECAEDetResponse->CAE : 'UNDEF') : 'N/A') .
+            " wsfe_error=" . $wsfev1->error,
+            LOG_DEBUG);
 
         // Si detecto error 10192, significa que necesito FCE, cambio el numero de comprobante y pido nuevo cae
         if ($cae->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code == "10192"){
@@ -782,7 +794,7 @@ function get_typecomprobante($object){
     if ($conf->global->MAIN_INFO_SOCIETE_FORME_JURIDIQUE !=2301){  //Monotributista
 
         // type of invoice (0=Standard invoice, 1=Replacement invoice, 2=Credit note invoice, 3=Deposit invoice)
-        if ($object->thirdparty->typent_code == "A" || $object->thirdparty->typent_code == "TE_A_RI") {  //"A" por compatibilidad modulo viejo
+        if ($object->thirdparty->typent_code == "A" || $object->thirdparty->typent_code == "TE_A_RI" || $object->thirdparty->typent_code == "TA_A_RI") {  //"A" por compatibilidad modulo viejo
 
             if ($object->type == 0){
                 $typeent="FA-";

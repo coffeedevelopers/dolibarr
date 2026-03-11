@@ -90,7 +90,7 @@ class modafipservice extends DolibarrModules
             'hooks'=>array( 'invoicecard',
                             'thirdpartycard',
                             'suppliercard'),
-            'js' => array('/afipservice/js/afipservice.js.php'),
+            'js' => array('/afipservice/js/afipws.js.php'),
             'models' => 1
         );
 

@@ -161,7 +161,7 @@ class mod_facture_afipservicewsfev1 extends ModeleNumRefFactures
         //else $where.=" AND type != 2";
 
       //WSFE  
-      	   if ($facture->model_pdf == 'afipservice_fe' && $facture->mode_reglement_code!="ECO" && $mode=="next")   //agregar ExtraField en fatura llamado fe
+      	   if (in_array($facture->model_pdf, ['afipservice_fe', 'afipws_fe', 'fe']) && $facture->mode_reglement_code!="ECO" && $mode=="next")   //agregar ExtraField en fatura llamado fe
            { 
 
                // Obtener el �ltimo n�mero para este tipo de comprobante / punto de venta:

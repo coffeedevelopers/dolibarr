@@ -105,7 +105,7 @@ class ActionsAfipws
 
         if (get_class($object)=="Facture"){
             //WSFE Permisos
-            if ($object->statut > 0 && ($object->model_pdf == 'fe' || $object->model_pdf == 'afipservice_fe' )) {   //agregar ExtraField en fatura llamado fe
+            if ($object->statut > 0 && in_array($object->model_pdf, ['fe', 'afipservice_fe', 'afipws_fe'])) {   //agregar ExtraField en fatura llamado fe
                 $conf->global->MAIN_USE_ADVANCED_PERMS = 1;
 				if (!isset($user->rights->facture->invoice_advance)) { //?CAMBIO TOMAS (Version) -> En version 8.2php no se puede asignar valores a propiedades nulas. Verifico que exista, si no esite la creo
 					$user->rights->facture->invoice_advance = new stdClass();

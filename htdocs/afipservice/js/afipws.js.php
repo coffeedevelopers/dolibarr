@@ -46,6 +46,10 @@ if (!$res && $i > 0 && file_exists(substr($tmp, 0, $i + 1) . "/../main.inc.php")
     $res = @(include substr($tmp, 0, $i + 1) . "/../main.inc.php");
 }
 
+if (!$res && file_exists("../../main.inc.php")) {
+    $res = @(include "../../main.inc.php");
+}
+
 if (!$res && file_exists("../../../main.inc.php")) {
     $res = @(include "../../../main.inc.php");
 }

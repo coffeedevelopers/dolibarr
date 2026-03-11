@@ -398,7 +398,7 @@ class pdf_afipservice_fe extends ModelePDFFactures
 					$sign=1;
 					if (isset($object->type) && $object->type == 2 && !empty($conf->global->INVOICE_POSITIVE_CREDIT_NOTE)) $sign=-1;
                    ///-------------------
-					if ($this->wsfe->cbttipo == '1' or $object->thirdparty->typent_code =='A' || $object->thirdparty->typent_code =='TE_A_RI') {
+					if ($this->wsfe->cbttipo == '1' or $object->thirdparty->typent_code =='A' || $object->thirdparty->typent_code =='TE_A_RI' || $object->thirdparty->typent_code =='TA_A_RI') {
 
 					    $tvat = price($sign*$object->lines[$i]->total_tva,0,$outputlangs);
 						$up_excl_tax = pdf_getlineupexcltax($object, $i, $outputlangs, $hidedetails);
@@ -1009,7 +1009,7 @@ class pdf_afipservice_fe extends ModelePDFFactures
 			$index++;
 		}
 		// Total HT //subtotal
-        if ($this->wsfe->cbttipo =='1' || $object->thirdparty->typent_code=='A' || $object->thirdparty->typent_code=='TE_A_RI') {
+        if ($this->wsfe->cbttipo =='1' || $object->thirdparty->typent_code=='A' || $object->thirdparty->typent_code=='TE_A_RI' || $object->thirdparty->typent_code=='TA_A_RI') {
             $pdf->SetXY($col1x, $tab2_top + $tab2_hl * $index);
             $pdf->SetFillColor(255, 255, 255);
 
@@ -1110,7 +1110,7 @@ class pdf_afipservice_fe extends ModelePDFFactures
 					}
 				//}
 				// VAT
-				if ($this->wsfe->cbttipo =='1' or $object->thirdparty->typent_code=='A' || $object->thirdparty->typent_code=='TE_A_RI'){
+				if ($this->wsfe->cbttipo =='1' or $object->thirdparty->typent_code=='A' || $object->thirdparty->typent_code=='TE_A_RI' || $object->thirdparty->typent_code=='TA_A_RI'){
 				foreach($this->tva as $tvakey => $tvaval)
 				{
 					if ($tvakey != 0)    // On affiche pas taux 0
