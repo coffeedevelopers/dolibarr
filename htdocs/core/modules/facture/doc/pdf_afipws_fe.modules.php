@@ -169,9 +169,10 @@ class pdf_afipws_fe extends ModelePDFFactures
 		{
 			$object->fetch_thirdparty();
 
-            $deja_regle = $object->getSommePaiement(($conf->multicurrency->enabled && $object->multicurrency_tx != 1) ? 1 : 0);
-            $amount_credit_notes_included = $object->getSumCreditNotesUsed(($conf->multicurrency->enabled && $object->multicurrency_tx != 1) ? 1 : 0);
-            $amount_deposits_included = $object->getSumDepositsUsed(($conf->multicurrency->enabled && $object->multicurrency_tx != 1) ? 1 : 0);
+            $multicurrencyEnabled = !empty($conf->multicurrency) && !empty($conf->multicurrency->enabled);
+            $deja_regle = $object->getSommePaiement(($multicurrencyEnabled && $object->multicurrency_tx != 1) ? 1 : 0);
+            $amount_credit_notes_included = $object->getSumCreditNotesUsed(($multicurrencyEnabled && $object->multicurrency_tx != 1) ? 1 : 0);
+            $amount_deposits_included = $object->getSumDepositsUsed(($multicurrencyEnabled && $object->multicurrency_tx != 1) ? 1 : 0);
 
 
             // Definition of $dir and $file
@@ -443,8 +444,8 @@ class pdf_afipws_fe extends ModelePDFFactures
 					$pdf->SetXY($this->posfac['item_qty']['x'], $curY);
 					$pdf->MultiCell($this->posfac['item_qty']['w'], $this->posfac['item_qty']['h'], $qty, 0, $this->posfac['item_qty']['alig'], 0);
 
-					// Enough for 6 chars
-					if($conf->global->PRODUCT_USE_UNITS)
+				// Enough for 6 chars
+				if(!empty($conf->global->PRODUCT_USE_UNITS))
 					{
 						$unit = pdf_getlineunit($object, $i, $outputlangs, $hidedetails, $hookmanager);
 						$pdf->SetFont($this->posfac['item_uni']['font'],$this->posfac['item_uni']['style'],$this->posfac['item_uni']['size']);
@@ -486,10 +487,10 @@ class pdf_afipws_fe extends ModelePDFFactures
 
                     if ($prev_progress > 0 && !empty($object->lines[$i]->situation_percent)) // Compute progress from previous situation
                     {
-                        if ($conf->multicurrency->enabled && $object->multicurrency_tx != 1) $tvaligne = $sign * $object->lines[$i]->multicurrency_total_tva * ($object->lines[$i]->situation_percent - $prev_progress) / $object->lines[$i]->situation_percent;
+                        if ($multicurrencyEnabled && $object->multicurrency_tx != 1) $tvaligne = $sign * $object->lines[$i]->multicurrency_total_tva * ($object->lines[$i]->situation_percent - $prev_progress) / $object->lines[$i]->situation_percent;
                         else $tvaligne = $sign * $object->lines[$i]->total_tva * ($object->lines[$i]->situation_percent - $prev_progress) / $object->lines[$i]->situation_percent;
                     } else {
-                        if ($conf->multicurrency->enabled && $object->multicurrency_tx != 1) $tvaligne= $sign * $object->lines[$i]->multicurrency_total_tva;
+                        if ($multicurrencyEnabled && $object->multicurrency_tx != 1) $tvaligne= $sign * $object->lines[$i]->multicurrency_total_tva;
                         else $tvaligne= $sign * $object->lines[$i]->total_tva;
                     }
 
@@ -1017,13 +1018,13 @@ class pdf_afipws_fe extends ModelePDFFactures
 			}
 
             $pdf->SetXY($col2x, $tab2_top + $tab2_hl * $index);
-            $total_ht = ($conf->multicurrency->enabled && $object->mylticurrency_tx != 1 ? $object->multicurrency_total_ht : $object->total_ht);
+            $total_ht = ($multicurrencyEnabled && $object->mylticurrency_tx != 1 ? $object->multicurrency_total_ht : $object->total_ht);
             $pdf->MultiCell($this->posfac['tot_col2']['w'],$this->posfac['tot_col2']['h'], price($sign * ($total_ht + (! empty($object->remise)?$object->remise:0)), 0, $outputlangs), 0, $this->posfac['tot_col2']['alig'], 1);
         }
 
     // Show VAT by rates and total
 		$pdf->SetFillColor(248,248,248);
-        $total_ttc = ($conf->multicurrency->enabled && $object->multicurrency_tx != 1) ? $object->multicurrency_total_ttc : $object->total_ttc;
+        $total_ttc = ($multicurrencyEnabled && $object->multicurrency_tx != 1) ? $object->multicurrency_total_ttc : $object->total_ttc;
 
         $this->atleastoneratenotnull=0;
 		if (empty($conf->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT))
@@ -1272,8 +1273,8 @@ class pdf_afipws_fe extends ModelePDFFactures
 
 		$pdf->SetTextColor(0,0,0);
 
-        $creditnoteamount=$object->getSumCreditNotesUsed(($conf->multicurrency->enabled && $object->multicurrency_tx != 1) ? 1 : 0);
-        $depositsamount=$object->getSumDepositsUsed(($conf->multicurrency->enabled && $object->multicurrency_tx != 1) ? 1 : 0);
+        $creditnoteamount=$object->getSumCreditNotesUsed(($multicurrencyEnabled && $object->multicurrency_tx != 1) ? 1 : 0);
+        $depositsamount=$object->getSumDepositsUsed(($multicurrencyEnabled && $object->multicurrency_tx != 1) ? 1 : 0);
 		//print "x".$creditnoteamount."-".$depositsamount;exit;
 		$resteapayer = price2num($total_ttc - $deja_regle - $creditnoteamount - $depositsamount, 'MT');
 		if ($object->paye) $resteapayer=0;
